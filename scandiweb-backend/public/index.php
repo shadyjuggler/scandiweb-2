@@ -2,7 +2,13 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
+    $r->get('/', [App\Controller\GraphQL::class, 'debug']);
     $r->post('/graphql', [App\Controller\GraphQL::class, 'handle']);
 });
 

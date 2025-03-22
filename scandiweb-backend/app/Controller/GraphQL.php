@@ -10,7 +10,13 @@ use GraphQL\Type\SchemaConfig;
 use RuntimeException;
 use Throwable;
 
+use \App\Database\DB;
+
 class GraphQL {
+    static public function debug(): mixed {
+        return "wasup";
+    }
+
     static public function handle() {
         try {
             $queryType = new ObjectType([
