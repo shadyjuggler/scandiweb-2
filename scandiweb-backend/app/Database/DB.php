@@ -55,7 +55,7 @@ class DB
     }
 
     /**
-     * Returns the PDO instance.
+     * Alias for ::conect().
      *
      * @return PDO The PDO instance db interaction.
      */
