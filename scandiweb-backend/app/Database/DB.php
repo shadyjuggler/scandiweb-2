@@ -5,10 +5,28 @@ namespace App\Database;
 use PDO;
 use PDOException;
 
+/**
+ * Class DB
+ *
+ * Database connection class. Implements a singleton-style 
+ * connection to avoid multiple connections.
+ */
 class DB
 {
+    /**
+     * The PDO instance used for the database connection.
+     *
+     * @var PDO|null
+     */
     private static ?PDO $pdo = null;
 
+    /**
+     * Establishes and returns a PDO connection.
+     * If a connection already exists, it reuses it.
+     *
+     * @return PDO
+     * @throws PDOException
+     */
     public static function connect(): PDO
     {
         if (!self::$pdo) {
@@ -26,11 +44,21 @@ class DB
         return self::$pdo;
     }
 
+    /**
+     * For debug, let's leave it here ;)
+     *
+     * @return string A static greeting message.
+     */
     public static function greet(): string
     {
         return DB::class . " says hello!";
     }
 
+    /**
+     * Returns the PDO instance.
+     *
+     * @return PDO The PDO instance db interaction.
+     */
     public static function raw(): PDO
     {
         return self::connect();
