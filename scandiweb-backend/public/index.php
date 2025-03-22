@@ -8,7 +8,6 @@ $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-    // $r->get('/', [App\Controller\GraphQLController::class, 'debug']);
     $r->post('/graphql', [App\Controller\GraphQLController::class, 'handle']);
 });
 
