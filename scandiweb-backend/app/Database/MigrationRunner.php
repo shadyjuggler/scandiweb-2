@@ -2,11 +2,28 @@
 
 namespace App\Database;
 
+/**
+ * Class MigrationRunner
+ *
+ * Handles db migrations and logs executed migrations.
+ */
 class MigrationRunner
 {
+    /**
+     * @var string Path where migrations located.
+     */
     protected string $migrationDir = __DIR__ . '/migrations';
-    protected string $logFile = __DIR__ . '/migration_log.json';
 
+    /**
+     * @var string Path to file where migrations logs located.
+     */
+    protected string $logFile = __DIR__ . '/../logs/migration_log.json';
+
+    /**
+     * Runs all unexectuted migrations.
+     *
+     * @return void
+     */
     public function run(): void
     {
         $migrated = file_exists($this->logFile)
