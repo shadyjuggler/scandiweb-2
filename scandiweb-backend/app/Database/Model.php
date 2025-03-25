@@ -24,13 +24,18 @@ abstract class Model
     protected array $fillable = [];
 
     /**
+     * @var array Array of "where" clause conditions.
+     */
+    protected array $whereConditions = [];
+
+    /**
      * Get all records from the table.
      *
      * @return array An array of all rows as associative arrays.
      */
     public function all(): array
     {
-        $stmt = DB::raw()->query("SELECT * FROM {$this->table}");
+        $stmt = DB::pdo()->query("SELECT * FROM {$this->table}");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -42,7 +47,7 @@ abstract class Model
      */
     public function find(int $id): ?array
     {
-        $stmt = DB::raw()->prepare("SELECT * FROM {$this->table} WHERE id = ?");
+        $stmt = DB::pdo()->prepare("SELECT * FROM {$this->table} WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
@@ -57,9 +62,9 @@ abstract class Model
     {
         $keys = implode(', ', array_keys($data));
         $placeholders = implode(', ', array_fill(0, count($data), '?'));
-        $stmt = DB::raw()->prepare("INSERT INTO {$this->table} ($keys) VALUES ($placeholders)");
+        $stmt = DB::pdo()->prepare("INSERT INTO {$this->table} ($keys) VALUES ($placeholders)");
         $stmt->execute(array_values($data));
-        return DB::raw()->lastInsertId();
+        return DB::pdo()->lastInsertId();
     }
 
     /**
@@ -72,7 +77,7 @@ abstract class Model
     public function update(int $id, array $data): bool
     {
         $fields = implode(', ', array_map(fn($key) => "$key = ?", array_keys($data)));
-        $stmt = DB::raw()->prepare("UPDATE {$this->table} SET $fields WHERE id = ?");
+        $stmt = DB::pdo()->prepare("UPDATE {$this->table} SET $fields WHERE id = ?");
         return $stmt->execute([...array_values($data), $id]);
     }
 
@@ -84,7 +89,56 @@ abstract class Model
      */
     public function delete(int $id): bool
     {
-        $stmt = DB::raw()->prepare("DELETE FROM {$this->table} WHERE id = ?");
+        $stmt = DB::pdo()->prepare("DELETE FROM {$this->table} WHERE id = ?");
         return $stmt->execute([$id]);
+    }
+
+     /**
+     * Add a WHERE condition.
+     *
+     * @param string $column
+     * @param string $operator
+     * @param mixed $value
+     * @return $this
+     */
+    public function where(string $column, string $operator, mixed $value): static
+    {
+        $this->whereConditions[] = [$column, $operator, $value];
+        return $this;
+    }
+
+    /**
+     * Execute the built query and return all matching records.
+     *
+     * @return array
+     */
+    public function get(): array
+    {
+        $query = "SELECT * FROM {$this->table}";
+        $params = [];
+
+        if (!empty($this->whereConditions)) {
+            $wheres = [];
+            foreach ($this->whereConditions as $conditon) {
+                $wheres[] = "{$conditon['col']} {$conditon['op']} ?";
+                $params[] = $conditon['val'];
+            }
+            $query .= " WHERE " . implode(" AND ", $wheres);
+        }
+
+        $stmt = DB::pdo()->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get the first matching record or null.
+     *
+     * @return array|null
+     */
+    public function first(): ?array
+    {
+        $results = $this->get();
+        return $results[0] ?? null;
     }
 }

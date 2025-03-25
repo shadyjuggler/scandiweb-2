@@ -59,7 +59,7 @@ class DB
      *
      * @return PDO The PDO instance db interaction.
      */
-    public static function raw(): PDO
+    public static function pdo(): PDO
     {
         return self::connect();
     }

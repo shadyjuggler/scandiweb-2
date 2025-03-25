@@ -6,7 +6,7 @@ use App\Database\DB;
 return new class {
     public function up()
     {
-        $pdo = DB::raw();
+        $pdo = DB::pdo();
         $pdo->exec("
             CREATE TABLE IF NOT EXISTS test (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,11 +15,5 @@ return new class {
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ");
-    }
-
-    public function down()
-    {
-        $pdo = DB::raw();
-        $pdo->exec("DROP TABLE IF EXISTS test");
     }
 };
