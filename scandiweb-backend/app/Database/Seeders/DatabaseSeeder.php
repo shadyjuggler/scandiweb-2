@@ -2,13 +2,12 @@
 
 namespace App\Database\Seeders;
 
-class DatabaseSeeder {
-    public static function run(): void {
-        echo "Running DatabaseSeeder...\n";
+use App\Database\Seeder;
 
-        CategorySeeder::run();
-        ProductSeeder::run();
+class DatabaseSeeder extends Seeder {
+    public function run(): void {
+        $data = $this->loadJsonData('data.json')['data'];
 
-        echo "All seeders executed.\n";
+        (new ProductSeeder($data))->run();
     }
 }

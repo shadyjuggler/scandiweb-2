@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Database\DB;
+use Error;
 use PDO;
 
 /**

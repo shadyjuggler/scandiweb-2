@@ -24,7 +24,7 @@ function seedDatabase(MigrationRunner $runner): void {
     echo "Running migrations first...\n";
     $runner->run();
 
-    echo "Seeding database...\n";
-    DatabaseSeeder::run();
-    echo "Seeding complete.\n";
+    echo "Running DatabaseSeeder...\n";
+    (new DatabaseSeeder)->run();
+    echo "All seeders executed.\n";
 }
