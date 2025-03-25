@@ -53,4 +53,38 @@ class MigrationRunner
             echo "No new migrations to run.\n";
         }
     }
+
+    /**
+     * Wipe database.
+     * 
+     * Removes all tables and records from db.
+     *
+     * @return void
+     */
+    public function wipe(): void {
+        $pdo = DB::pdo();
+    
+        echo "Wiping database...\n";
+    
+        $pdo->exec("SET FOREIGN_KEY_CHECKS = 0");
+    
+        $stmt = $pdo->query("SHOW TABLES");
+        $tables = $stmt->fetchAll($pdo::FETCH_COLUMN);
+    
+        foreach ($tables as $table) {
+            echo "Dropping table: $table\n";
+            $pdo->exec("DROP TABLE IF EXISTS `$table`");
+        }
+    
+        $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
+    
+        // Delete migration log file
+        if (file_exists($this->logFile)) {
+            unlink($this->logFile);
+            echo "Deleted migration log file.\n";
+        }
+    
+        echo "Database wiped successfully.\n";
+    }
+    
 }

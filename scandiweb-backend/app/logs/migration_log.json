@@ -1,3 +1,10 @@
 [
-    "1_create_user_table.php"
+    "1_create_categories_table.php",
+    "2_create_products_table.php",
+    "3_create_product_gallery_table.php",
+    "4_create_currencies_table.php",
+    "5_create_product_prices_table.php",
+    "6_create_attributes_table.php",
+    "7_create_attribute_items_table.php",
+    "8_create_product_attributes_table.php"
 ]
