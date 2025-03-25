@@ -55,7 +55,7 @@ abstract class Model
     /**
      * Insert a new record into the database.
      *
-     * @param array $data Key-value pairs of column names and values.
+     * @param array $data assoc array of column names and values.
      * @return int The ID of the newly inserted record.
      */
     public function create(array $data): int
@@ -65,6 +65,38 @@ abstract class Model
         $stmt = DB::pdo()->prepare("INSERT INTO {$this->table} ($keys) VALUES ($placeholders)");
         $stmt->execute(array_values($data));
         return DB::pdo()->lastInsertId();
+    }
+
+    /**
+     * First record matched the conditions or create new one.
+     *
+     * If a record with the given conditions exists, it returns that record.
+     * Otherwise, it inserts a new record using the provided data (or the conditions).
+     *
+     * @param array $conditions Key-value pairs to check existence
+     * @param array|null $data Data to insert (optional, defaults to $conditions)
+     * @return array|int|null The existing or newly created record id
+     */
+    public function firstOrCreate(array $conditions, ?array $data = null): array | int | null
+    {
+        $where = [];
+        $values = [];
+
+        foreach ($conditions as $key => $val) {
+            $where[] = "{$key} = ?";
+            $values[] = $val;
+        }
+
+        $query = "SELECT * FROM {$this->table} WHERE " . implode(" AND ", $where) . " LIMIT 1";
+        $stmt = DB::pdo()->prepare($query);
+        $stmt->execute($values);
+
+        $existing = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($existing) {
+            return $existing;
+        }
+
+        return $this->create($data ?? $conditions);
     }
 
     /**
@@ -93,7 +125,7 @@ abstract class Model
         return $stmt->execute([$id]);
     }
 
-     /**
+    /**
      * Add a WHERE condition.
      *
      * @param string $column
