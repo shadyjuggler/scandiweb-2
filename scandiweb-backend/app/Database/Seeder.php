@@ -2,6 +2,8 @@
 
 namespace App\Database;
 
+use Dom\Implementation;
+
 abstract class Seeder
 {
     /**
@@ -18,7 +20,8 @@ abstract class Seeder
      * @return void
      */
     protected function log(string $message): void {
-        echo "[Seeder:] " . $message . "\n";
+        $parts = explode('\\', static::class);
+        echo '[' . end($parts) . ']: ' . $message . "\n";
     }
 
     protected function loadJsonData(string $filename) {

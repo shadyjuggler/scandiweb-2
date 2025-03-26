@@ -21,7 +21,7 @@ match ($action) {
 };
 
 function seedDatabase(MigrationRunner $runner): void {
-    echo "Running migrations first...\n";
+    echo "Running migrations...\n";
     $runner->run();
 
     echo "Running DatabaseSeeder...\n";

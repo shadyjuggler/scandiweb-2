@@ -136,7 +136,11 @@ abstract class Model
      */
     public function where(string $column, string $operator, mixed $value): static
     {
-        $this->whereConditions[] = [$column, $operator, $value];
+        $this->whereConditions[] = [
+            "col" => $column,
+            "op" => $operator,
+            "val" => $value
+        ];
         return $this;
     }
 
@@ -173,5 +177,18 @@ abstract class Model
     {
         $results = $this->get();
         return $results[0] ?? null;
+    }
+
+    /**
+     * Get the first record matching a single condition.
+     *
+     * @param string $column
+     * @param mixed $value
+     * @param string $operator
+     * @return array|null
+     */
+    public function firstWhere(string $column, mixed $value, string $operator = '='): ?array
+    {
+        return $this->where($column, $operator, $value)->first();
     }
 }

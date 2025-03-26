@@ -39,7 +39,7 @@ class MigrationRunner
                 continue;
             }
 
-            echo "Running migration: $name\n";
+            echo "[Migration]: $name\n";
             $migration = require $file;
             $migration->up();
             $migrated[] = $name;
@@ -72,7 +72,7 @@ class MigrationRunner
         $tables = $stmt->fetchAll($pdo::FETCH_COLUMN);
     
         foreach ($tables as $table) {
-            echo "Dropping table: $table\n";
+            echo "[DROP table]: $table\n";
             $pdo->exec("DROP TABLE IF EXISTS `$table`");
         }
     

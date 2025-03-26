@@ -8,6 +8,10 @@ class DatabaseSeeder extends Seeder {
     public function run(): void {
         $data = $this->loadJsonData('data.json')['data'];
 
+        (new CategoriesSeeder($data))->run();
+        (new CurrenciesSeeder($data))->run();
+        (new AttributesSeeder($data))->run();
+        (new AttributeItemsSeeder($data))->run();
         (new ProductSeeder($data))->run();
     }
 }
