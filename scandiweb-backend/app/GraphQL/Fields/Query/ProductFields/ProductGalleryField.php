@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Fields\Query;
+namespace App\GraphQL\Fields\Query\ProductFields;
 
 use App\GraphQL\TypeRegistry;
 use App\GraphQL\Types\CategoryType;

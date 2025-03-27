@@ -2,16 +2,14 @@
 
 namespace App\GraphQL\Types;
 
-use App\GraphQL\Fields\Query\ProductAttributesField;
-use App\GraphQL\Fields\Query\PriceField;
-use App\GraphQL\Fields\Query\ProductCategoryField;
-use App\GraphQL\Fields\Query\ProductGalleryField;
-use App\GraphQL\Fields\Query\ProductInStockField;
-use App\GraphQL\TypeRegistry;
+use App\GraphQL\Fields\Query\ProductFields\ProductAttributesField;
+use App\GraphQL\Fields\Query\ProductFields\ProductCategoryField;
+use App\GraphQL\Fields\Query\ProductFields\ProductGalleryField;
+use App\GraphQL\Fields\Query\ProductFields\ProductInStockField;
+use App\GraphQL\Fields\Query\ProductFields\ProductPriceField;
+
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use App\Models\Category;
-use App\Models\Price;
 
 class ProductType extends ObjectType
 {
@@ -28,7 +26,7 @@ class ProductType extends ObjectType
                 'gallery' => ProductGalleryField::config(),
                 'name' => Type::string(),
                 'inStock' => ProductInStockField::config(),
-                'prices' => PriceField::config()
+                'prices' => ProductPriceField::config()
             ]
         ]);
     }

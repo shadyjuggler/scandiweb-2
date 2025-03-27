@@ -1,13 +1,13 @@
 <?php
 
-namespace App\GraphQL\Fields\Query;
+namespace App\GraphQL\Fields\Query\ProductFields;
 
 use App\GraphQL\TypeRegistry;
 use App\GraphQL\Types\PriceType;
 use GraphQL\Type\Definition\Type;
 use App\Models\Price;
 
-class PriceField
+class ProductPriceField
 {
     public static function config(): array
     {
