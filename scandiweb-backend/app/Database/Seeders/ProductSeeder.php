@@ -20,11 +20,6 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
 
-        $categories = (new Category)->all();
-        $currencyModel = new Currency;
-        $attributeModel = new Attribute;
-        $attributeItemModel = new AttributeItem;
-
         $this->log("Seeding products it's gallery, price and attributes...");
 
         foreach ($this->data['products'] as $productData) {
@@ -37,10 +32,7 @@ class ProductSeeder extends Seeder
                 'description' => $productData['description'],
                 'in_stock' => (int)$productData['inStock'],
                 'brand' => $productData['brand'],
-                'category_id' => array_find(
-                    $categories,
-                    fn($category) => $category['name'] == $productData['category']
-                )['id']
+                'category_id' => (new Category)->firstWhere('name', $productData['category'])['id']
             ]);
 
 
@@ -58,7 +50,7 @@ class ProductSeeder extends Seeder
             // Product Prices
 
             foreach ($productData['prices'] as $productPrice) {
-                $currency = $currencyModel->firstWhere('label', $productPrice['currency']['label']);
+                $currency = (new Currency)->firstWhere('label', $productPrice['currency']['label']);
 
                 (new Price)->firstOrCreate([
                     'amount' => $productPrice['amount'],
@@ -73,12 +65,13 @@ class ProductSeeder extends Seeder
             foreach ($productData['attributes'] as $attributeSet) {
 
                 // Makes sure that attribute exist
-                $attribute = $attributeModel->firstWhere('name', $attributeSet['name']);
+                $attribute = (new Attribute)->firstWhere('name', $attributeSet['name']);
+
                 if (!$attribute) continue;
 
                 foreach ($attributeSet['items'] as $attributeSetItem) {
                     // Find matching attribute item
-                    $attributeItem = $attributeItemModel->firstWhere('value', $attributeSetItem['value']);
+                    $attributeItem = (new AttributeItem)->firstWhere('value', $attributeSetItem['value']);
                     if (!$attributeItem) continue;
 
                     (new ProductAttribute)->firstOrCreate([

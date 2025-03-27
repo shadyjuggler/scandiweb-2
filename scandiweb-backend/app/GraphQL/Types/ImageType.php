@@ -7,16 +7,16 @@ use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use App\Models\Currency;
 
-class PriceType extends ObjectType
+class ImageType extends ObjectType
 {
     public function __construct()
     {
         parent::__construct([
-            'name' => 'Price',
+            'name' => 'Image',
             'fields' => fn () => [
                 'id' => Type::int(),
-                'amount' => Type::float(),
-                'currency' => CurrencyField::config()
+                'url' => Type::string(),
+                'position' => Type::int()
             ]
         ]);
     }

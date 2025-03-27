@@ -2,9 +2,11 @@
 
 namespace App\GraphQL;
 
+use App\GraphQL\Types\AttributeType;
 use App\GraphQL\Types\ProductType;
 use App\GraphQL\Types\PriceType;
 use App\GraphQL\Types\CategoryType;
+use App\GraphQL\Types\ImageType;
 
 class TypeRegistry
 {
@@ -23,5 +25,15 @@ class TypeRegistry
     public static function category(): CategoryType
     {
         return self::$instances['Category'] ??= new CategoryType();
+    }
+
+    public static function image(): ImageType
+    {
+        return self::$instances['Image'] ??= new ImageType();
+    }
+
+    public static function attribute(): AttributeType
+    {
+         return self::$instances['Attribute'] ??= new AttributeType();
     }
 }

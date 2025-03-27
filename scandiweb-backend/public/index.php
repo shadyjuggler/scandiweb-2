@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\Models\Product;
+use App\Models\Attribute;
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
@@ -32,4 +32,4 @@ switch ($routeInfo[0]) {
         break;
 }
 
-// print_r((new Product)->find("ps-5"));
+// print_r((new Attribute)->getWithValuesByProductId("ps-5"));
