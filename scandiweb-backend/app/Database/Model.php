@@ -43,10 +43,10 @@ abstract class Model
     /**
      * Find a record by its primary key.
      *
-     * @param int $id The ID of the record.
+     * @param int|string $id The ID of the record.
      * @return array|null The record as an associative array, or null if not found.
      */
-    public function find(int $id): ?array
+    public function find(int|string $id): ?array
     {
         $stmt = DB::pdo()->prepare("SELECT * FROM {$this->table} WHERE id = ?");
         $stmt->execute([$id]);
