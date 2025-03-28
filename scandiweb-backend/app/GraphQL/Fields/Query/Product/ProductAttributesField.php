@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Fields\Query\ProductFields;
+namespace App\GraphQL\Fields\Query\Product;
 
 use GraphQL\Type\Definition\Type;
 use App\GraphQL\TypeRegistry;

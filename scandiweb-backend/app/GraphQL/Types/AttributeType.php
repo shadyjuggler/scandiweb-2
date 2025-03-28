@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Types;
 
-use App\GraphQL\Fields\Query\ProductFields\ProductAttributeItemsField;
+use App\GraphQL\Fields\Query\Product\ProductAttributeItemsField;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ObjectType;
 

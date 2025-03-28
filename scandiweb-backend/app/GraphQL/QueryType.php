@@ -2,14 +2,14 @@
 
 namespace App\GraphQL;
 
-use App\GraphQL\Fields\Query\AttributeField;
-use App\GraphQL\Fields\Query\AttributesField;
-use App\GraphQL\Fields\Query\CategoriesField;
-use App\GraphQL\Fields\Query\CategoryField;
-use App\GraphQL\Fields\Query\GalleryField;
+use App\GraphQL\Fields\Query\Attribute\AttributeField;
+use App\GraphQL\Fields\Query\Attribute\AttributesField;
+use App\GraphQL\Fields\Query\Category\CategoriesField;
+use App\GraphQL\Fields\Query\Category\CategoryField;
+use App\GraphQL\Fields\Query\Gallery\GalleryField;
 use GraphQL\Type\Definition\ObjectType;
-use App\GraphQL\Fields\Query\ProductsField;
-use App\GraphQL\Fields\Query\ProductField;
+use App\GraphQL\Fields\Query\Product\ProductsField;
+use App\GraphQL\Fields\Query\Product\ProductField;
 
 class QueryType extends ObjectType
 {

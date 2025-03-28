@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Fields\Query;
+namespace App\GraphQL\Fields\Query\Currency;
 
 use App\GraphQL\Types\CurrencyType;
 use App\Models\Currency;

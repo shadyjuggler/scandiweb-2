@@ -1,10 +1,9 @@
 <?php
 
-namespace App\GraphQL\Fields\Query\ProductFields;
+namespace App\GraphQL\Fields\Query\Product;
 
 use GraphQL\Type\Definition\Type;
 use App\GraphQL\TypeRegistry;
-use App\Models\AttributeItem;
 use App\Models\ProductAttribute;
 
 class ProductAttributeItemsField

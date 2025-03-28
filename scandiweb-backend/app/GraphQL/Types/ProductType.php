@@ -2,11 +2,11 @@
 
 namespace App\GraphQL\Types;
 
-use App\GraphQL\Fields\Query\ProductFields\ProductAttributesField;
-use App\GraphQL\Fields\Query\ProductFields\ProductCategoryField;
-use App\GraphQL\Fields\Query\ProductFields\ProductGalleryField;
-use App\GraphQL\Fields\Query\ProductFields\ProductInStockField;
-use App\GraphQL\Fields\Query\ProductFields\ProductPriceField;
+use App\GraphQL\Fields\Query\Product\ProductAttributesField;
+use App\GraphQL\Fields\Query\Product\ProductCategoryField;
+use App\GraphQL\Fields\Query\Product\ProductGalleryField;
+use App\GraphQL\Fields\Query\Product\ProductInStockField;
+use App\GraphQL\Fields\Query\Product\ProductPriceField;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;

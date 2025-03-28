@@ -1,10 +1,9 @@
 <?php
 
-namespace App\GraphQL\Fields\Query;
+namespace App\GraphQL\Fields\Query\Attribute;
 
 use App\GraphQL\TypeRegistry;
 use App\Models\Attribute;
-use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 
 class AttributeField

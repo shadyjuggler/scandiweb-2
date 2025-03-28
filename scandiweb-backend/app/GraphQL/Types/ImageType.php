@@ -2,10 +2,8 @@
 
 namespace App\GraphQL\Types;
 
-use App\GraphQL\Fields\Query\CurrencyField;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use App\Models\Currency;
 
 class ImageType extends ObjectType
 {

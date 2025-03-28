@@ -1,10 +1,8 @@
 <?php
 
-namespace App\GraphQL\Fields\Query;
+namespace App\GraphQL\Fields\Query\Gallery;
 
 use App\GraphQL\TypeRegistry;
-use App\GraphQL\Types\CategoryType;
-use App\Models\Category;
 use App\Models\Gallery;
 use GraphQL\Type\Definition\Type;
 

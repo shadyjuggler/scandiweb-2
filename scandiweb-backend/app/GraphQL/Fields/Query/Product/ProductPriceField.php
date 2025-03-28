@@ -1,9 +1,8 @@
 <?php
 
-namespace App\GraphQL\Fields\Query\ProductFields;
+namespace App\GraphQL\Fields\Query\Product;
 
 use App\GraphQL\TypeRegistry;
-use App\GraphQL\Types\PriceType;
 use GraphQL\Type\Definition\Type;
 use App\Models\Price;
 

@@ -4,7 +4,6 @@ namespace App\GraphQL\Types;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use App\Models\Currency;
 
 class CategoryType extends ObjectType
 {

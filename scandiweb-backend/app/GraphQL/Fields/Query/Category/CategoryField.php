@@ -1,19 +1,21 @@
 <?php
 
-namespace App\GraphQL\Fields\Query\ProductFields;
+namespace App\GraphQL\Fields\Query\Category;
 
 use App\GraphQL\TypeRegistry;
-use App\GraphQL\Types\CategoryType;
 use App\Models\Category;
 use GraphQL\Type\Definition\Type;
 
-class ProductCategoryField
+class CategoryField
 {
     public static function config(): array
     {
         return [
             'type' => TypeRegistry::category(),
-            'resolve' => fn($product) => (new Category())->find($product['category_id'])
+            'args' => [
+                'id' => Type::int()
+            ],
+            'resolve' => fn($_, $args) => (new Category())->find($args['id'])
         ];
     }
 }

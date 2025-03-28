@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Fields\Query;
+namespace App\GraphQL\Fields\Query\Attribute;
 
 use App\GraphQL\TypeRegistry;
 use App\Models\Attribute;
