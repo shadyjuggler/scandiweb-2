@@ -20,6 +20,16 @@ abstract class Model
     protected string $table;
 
     /**
+     * @var string[] List of columns to select.
+     */
+    protected array $selectColumns = ['*'];
+
+    /**
+     * @var string apply SELECT DISTINCT statement or not.
+     */
+    protected string $distinct = "";
+
+    /**
      * @var array List of fillable fields that can be mass-assigned.
      */
     protected array $fillable = [];
@@ -28,6 +38,12 @@ abstract class Model
      * @var array Array of "where" clause conditions.
      */
     protected array $whereConditions = [];
+
+    /**
+     * @var array Array of "join" clause relations.
+     */
+    protected array $joins = [];
+
 
     /**
      * Get all records from the table.
@@ -127,6 +143,30 @@ abstract class Model
     }
 
     /**
+     * Set the columns to select in the query.
+     *
+     * @param array|string $columns
+     * @return $this
+     */
+    public function distinct(): static
+    {
+        $this->distinct = "DISTINCT";
+        return $this;
+    }
+
+    /**
+     * Set the columns to select in the query.
+     *
+     * @param array|string $columns
+     * @return $this
+     */
+    public function select(array|string $columns, $distinct = false): static
+    {
+        $this->selectColumns = is_array($columns) ? $columns : [$columns];
+        return $this;
+    }
+
+    /**
      * Add a WHERE condition.
      *
      * @param string $column
@@ -145,14 +185,41 @@ abstract class Model
     }
 
     /**
+     * Add a JOIN clause.
+     *
+     * @param string $table The table to join
+     * @param string $localKey The column from this model's table
+     * @param string $foreignKey The column from the joined table
+     * @param string $type Join type (default: INNER)
+     * @return $this
+     */
+    public function join(string $table, string $localKey, string $foreignKey, string $type = 'INNER'): static
+    {
+        $this->joins[] = [
+            'table' => $table,
+            'local' => "{$this->table}.{$localKey}",
+            'foreign' => "{$table}.{$foreignKey}",
+            'type' => $type,
+        ];
+        return $this;
+    }
+
+    /**
      * Execute the built query and return all matching records.
      *
      * @return array
      */
     public function get(): array
     {
-        $query = "SELECT * FROM {$this->table}";
+        $select = implode(', ', $this->selectColumns);
+        $query = "SELECT {$this->distinct} {$select} FROM {$this->table}";
         $params = [];
+
+        if (!empty($this->joins)) {
+            foreach ($this->joins as $join) {
+                $query .= " {$join['type']} JOIN {$join['table']} ON {$join['local']} = {$join['foreign']}";
+            }
+        }
 
         if (!empty($this->whereConditions)) {
             $wheres = [];

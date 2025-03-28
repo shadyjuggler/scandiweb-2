@@ -2,6 +2,8 @@
 
 namespace App\GraphQL;
 
+use App\GraphQL\Fields\Query\AttributeField;
+use App\GraphQL\Fields\Query\AttributesField;
 use App\GraphQL\Fields\Query\CategoriesField;
 use App\GraphQL\Fields\Query\CategoryField;
 use App\GraphQL\Fields\Query\GalleryField;
@@ -22,7 +24,10 @@ class QueryType extends ObjectType
                 'categories' => fn () => CategoriesField::config(),
                 'category' => fn () => CategoryField::config(),
 
-                'gallery' => fn () => GalleryField::config() 
+                'gallery' => fn () => GalleryField::config(),
+                
+                'attributes' => fn () => AttributesField::config(),
+                'attribute' => fn () => AttributeField::config()
             ],
         ]);
     }

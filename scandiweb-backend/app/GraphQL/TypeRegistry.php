@@ -2,6 +2,8 @@
 
 namespace App\GraphQL;
 
+use App\GraphQL\Types\AttributeItemType;
+use App\GraphQL\Types\AttributeSetType;
 use App\GraphQL\Types\AttributeType;
 use App\GraphQL\Types\ProductType;
 use App\GraphQL\Types\PriceType;
@@ -31,9 +33,14 @@ class TypeRegistry
     {
         return self::$instances['Image'] ??= new ImageType();
     }
-
+    
     public static function attribute(): AttributeType
     {
-         return self::$instances['Attribute'] ??= new AttributeType();
+        return self::$instances['Attribute'] ??= new AttributeType();
+    }
+
+    public static function attributeItem(): AttributeItemType
+    {
+        return self::$instances['AttributeItem'] ??= new AttributeItemType();
     }
 }
