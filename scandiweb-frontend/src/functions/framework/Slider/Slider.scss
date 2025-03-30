@@ -1,0 +1,48 @@
+.slider {
+    overflow: hidden;
+    width: 100%;
+
+    &__main {
+        background-color: bisque;
+        white-space: nowrap;
+        height: 100%;
+        font-size: 0;
+        transition: transform .5s ease-in-out;
+    }
+
+    &__slide {
+        box-sizing: border-box;
+        border: 1px solid black;
+        display: inline-block;
+        height: 100px;
+        background-color: blue;
+    }
+
+    &__btn-next,
+    &__btn-prev {
+        width: 20px;
+        height: 20px;
+        background-color: green;
+        border: 1px solid black;
+    }
+
+    &__pagination {
+        display: flex;
+        gap: 5px;
+
+        .dot {
+            cursor: pointer;
+
+            width: 10px;
+            height: 10px;
+            background-color: cyan;
+
+            background-size: cover;
+            background-position: center center;
+
+            &_active {
+                // border: 2px solid black;
+            }
+        }
+    }
+}

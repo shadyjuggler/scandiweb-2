@@ -1,0 +1,47 @@
+@keyframes quckShop {
+    0% {
+        right: 40px;
+    }
+
+    100% {
+        right: 14px;
+    }
+}
+
+@keyframes shacking {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    50% {
+        transform: rotate(0eg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes skeletonWave {
+    0% {
+        background-color: var(--c-cream);
+
+    }
+
+    50% {
+        background-color: var(--c-lightgray);
+
+    }
+
+    100% {
+        background-color: var(--c-cream);
+    }
+}
