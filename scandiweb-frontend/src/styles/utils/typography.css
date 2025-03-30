@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: "Raleway", sans-serif;
+}
+
+.nav-link {
+    @apply px-4 pb-6 flex items-start cursor-pointer border-b-2 border-transparent;
+}
+
+.nav-link:not(.nav-link_active):hover {
+    @apply border-gray-300;
+}
+
+.nav-link_active {
+    @apply border-[#5ECE7B] text-[#5ECE7B];
+}
