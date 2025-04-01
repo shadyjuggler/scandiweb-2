@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-
 * {
     font-family: "Raleway", sans-serif;
 }
@@ -14,4 +12,13 @@
 
 .nav-link_active {
     @apply border-[#5ECE7B] text-[#5ECE7B];
+}
+
+.subtitle {
+    @apply font-bold text-lg uppercase;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.sourcesanspro {
+    font-family: 'Source Sans Pro', sans-serif;
 }

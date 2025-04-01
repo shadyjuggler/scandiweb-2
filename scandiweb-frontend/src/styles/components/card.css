@@ -1,0 +1,16 @@
+.card {
+    @apply p-4 flex flex-col w-full max-w-[386px] hover:shadow-lg cursor-pointer;
+    transition: .2s ease-in-out;
+}
+
+.card .card-placeholder {
+    @apply min-h-[330px] bg-slate-300 flex justify-center items-center;   
+}
+
+.card:not(.outofstock):hover .quickshop {
+    @apply opacity-100 pointer-events-auto;
+}
+
+.outofstock {
+    @apply bg-white/50 w-full h-full items-center justify-center;
+}

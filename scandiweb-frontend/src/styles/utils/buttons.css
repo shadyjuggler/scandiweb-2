@@ -1,0 +1,7 @@
+.btn {
+    @apply uppercase w-full border-2 transition-all cursor-pointer;
+}
+
+.btn-primary {
+    @apply bg-[#5ECE7B] text-white border-[#5ECE7B] hover:text-[#5ECE7B] hover:bg-white;
+}

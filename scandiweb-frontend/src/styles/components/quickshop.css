@@ -1,0 +1,3 @@
+.quickshop {
+    @apply p-4 rounded-full bg-[#5ECE7B] flex items-center justify-center transition-all;
+}
