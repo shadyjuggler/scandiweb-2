@@ -2,11 +2,21 @@
 @import "./utils/typography.css";
 @import "./utils/buttons.css";
 @import "./components/quickshop.css";
+@import "./components/pd-slider.css";
 @import "./components/attributes.css";
 @import "./components/card.css";
 
-@media (width >= 96rem) {
+@media (width >=96rem) {
     .container {
         max-width: 80rem;
     }
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

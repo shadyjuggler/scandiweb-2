@@ -1,0 +1,8 @@
+.pd-sliderPagination {
+    @apply absolute left-0 top-0 w-1/5 h-full -left-1/2 flex-col items-start justify-between pr-2.5;
+}
+
+.pd-sliderPagination .pagination-bullet {
+    @apply w-full rounded-none aspect-square;
+}
+
