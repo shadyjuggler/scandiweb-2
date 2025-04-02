@@ -1,8 +1,62 @@
 import { Card } from "./Card";
 
+import { TextAttributesSet } from "./UI/TextAttributesSet";
+import { SwatchAttributesSet } from "./UI/SwatchAttributesSet";
+
 interface ProductDetailsInterface {
     description: string;
 }
+
+const textAttributesSet = [
+    {
+        displayValue: "Small",
+        value: "S",
+        id: "Small",
+    },
+    {
+        displayValue: "Medium",
+        value: "M",
+        id: "Medium",
+    },
+    {
+        displayValue: "Large",
+        value: "L",
+        id: "Large",
+    },
+    {
+        displayValue: "Extra Large",
+        value: "XL",
+        id: "Extra Large",
+    },
+];
+
+const swatchAttributesSet = [
+    {
+        displayValue: "Green",
+        value: "#44FF03",
+        id: "Green"
+    },
+    {
+        "displayValue": "Cyan",
+        value: "#03FFF7",
+        id: "Cyan"
+    },
+    {
+        displayValue: "Blue",
+        value: "#030BFF",
+        id: "Blue"
+    },
+    {
+        displayValue: "Black",
+        value: "#000000",
+        id: "Black"
+    },
+    {
+        displayValue: "White",
+        value: "#FFFFFF",
+        id: "White"
+    }
+];
 
 export const ProductDetials: React.FC<ProductDetailsInterface> = ({
     description,
@@ -17,29 +71,17 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                     </div>
                     <div className="mt-4">
                         <p className="subtitle">size:</p>
-                        <div className="mt-2 flex gap-3">
-                            <span className="min-w-15 py-2.5 border border-black">
-                                <p className="sourcesanspro text-center uppercase">xs</p>
-                            </span>
-                            <span className="min-w-15 py-2.5 border border-black bg-black">
-                                <p className="sourcesanspro text-center uppercase text-white">s</p>
-                            </span>
-                            <span className="min-w-15 py-2.5 border border-black">
-                                <p className="sourcesanspro text-center uppercase">m</p>
-                            </span>
-                            <span className="min-w-15 py-2.5 border border-black">
-                                <p className="sourcesanspro text-center uppercase">l</p>
-                            </span>
+                        <div className="mt-2">
+                            <TextAttributesSet
+                                data={textAttributesSet}
+                            />
                         </div>
                     </div>
                     <div className="mt-4">
                         <p className="subtitle">color:</p>
-                        <div className="mt-2 flex gap-2 ">
-                            <span className="border-2 border-white outline-2 outline-[#5ECE7B] w-8 h-8 bg-amber-300"></span>
-                            <span className="w-8 h-8 bg-amber-400"></span>
-                            <span className="w-8 h-8 bg-amber-500"></span>
-                        </div>
+                        <SwatchAttributesSet data={swatchAttributesSet}/>
                     </div>
+                    
                     <div className="mt-4">
                         <p className="subtitle">price:</p>
                         <p className="font-bold text-2xl">$50.00</p>

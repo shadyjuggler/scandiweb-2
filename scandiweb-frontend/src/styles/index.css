@@ -2,6 +2,7 @@
 @import "./utils/typography.css";
 @import "./utils/buttons.css";
 @import "./components/quickshop.css";
+@import "./components/attributes.css";
 @import "./components/card.css";
 
 @media (width >= 96rem) {

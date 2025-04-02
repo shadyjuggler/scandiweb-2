@@ -1,0 +1,23 @@
+.attribute-text {
+    @apply min-w-15 py-2.5 px-2.5 border border-[#1D1F22] bg-white cursor-pointer transition-all;
+}
+
+.attribute-text p {
+    @apply text-center uppercase text-[#1D1F22];
+}
+
+.attribute-text.attribute-text_active {
+    @apply !bg-[#1D1F22];
+}
+
+.attribute-text.attribute-text_active p {
+    @apply text-white;
+}
+
+.attribute-swatch {
+    @apply w-8 h-8 cursor-pointer transition-all;
+}
+
+.attribute-swatch_active {
+    @apply border-2 border-white outline-2 outline-[#5ECE7B];
+}
