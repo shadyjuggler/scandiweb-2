@@ -1,4 +1,4 @@
-import { AttributeType, AttributeSetType } from "../../types"
+import { AttributeType } from "../../types"
 
 export interface AttributesSetProps {
     data: AttributeType[],

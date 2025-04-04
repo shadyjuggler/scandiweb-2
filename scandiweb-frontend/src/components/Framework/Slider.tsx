@@ -12,7 +12,12 @@ interface SliderProps {
     children: ReactNode;
     autoScroll?: boolean;
     interval?: number;
+    navigation?: {
+        btnPrev: string,
+        btnNext: string
+    }
     paginationClassName?: string;
+    paginationGallery?: string[]
 }
 
 export const Slider: React.FC<SliderProps> = ({
@@ -20,7 +25,9 @@ export const Slider: React.FC<SliderProps> = ({
     children,
     autoScroll = false,
     interval = 3000,
+    navigation,
     paginationClassName = "",
+    paginationGallery
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -85,12 +92,14 @@ export const Slider: React.FC<SliderProps> = ({
                 {/* Navigation */}
                 <button
                     onClick={prevSlide}
+                    id={navigation?.btnPrev ?? ""}
                     className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded-full shadow-md z-10"
                 >
                     ◀
                 </button>
                 <button
                     onClick={nextSlide}
+                    id={navigation?.btnNext ?? ""}
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded-full shadow-md z-10"
                 >
                     ▶
@@ -109,6 +118,7 @@ export const Slider: React.FC<SliderProps> = ({
                                 setCurrentIndex(i);
                                 scrollToSlide(i);
                             }}
+                            style={paginationGallery ? {backgroundImage: `url(${paginationGallery[i]})`} : {}}
                             className={`pagination-bullet w-3 h-3 rounded-full transition-colors duration-300 z-40 ${
                                 i === currentIndex
                                     ? "bg-red-500"

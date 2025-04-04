@@ -1,6 +1,6 @@
 import { Navbar } from "./components/UI/Navbar";
 // import { ProductList } from "./components/ProductList";
-import { ProductDetials } from "./components/ProductDetails";
+import { ProductDetials } from "./components/Pages/ProductDetails";
 
 function App() {
     return (
