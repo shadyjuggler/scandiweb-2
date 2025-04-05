@@ -3,8 +3,6 @@ import { AttributeSetType } from "../../types";
 import { SwatchAttributesSet } from "./SwatchAttributesSet";
 import { TextAttributesSet } from "./TextAttributesSet";
 
-import { useState } from "react";
-
 interface CartItemProps {
     title: string;
     price: string;

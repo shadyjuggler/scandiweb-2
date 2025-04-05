@@ -1,79 +1,23 @@
-import { Card } from "../UI/Card";
-
 import { TextAttributesSet } from "../UI/TextAttributesSet";
 import { SwatchAttributesSet } from "../UI/SwatchAttributesSet";
 
 import { Slider } from "../Framework/Slider";
 import { Slide } from "../Framework/Slide";
+import { AttributeSetType } from "../../types";
 
 interface ProductDetailsInterface {
+    title: string;
+    price: string;
+    attributeSets: AttributeSetType[];
+    gallery: string[];
     description: string;
 }
 
-// Mock data
-
-const gallery = [
-    "https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016105/product-image/2409L_61.jpg",
-    "https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016107/product-image/2409L_61_a.jpg",
-    "https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016108/product-image/2409L_61_b.jpg",
-    "https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016109/product-image/2409L_61_c.jpg",
-    "https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016110/product-image/2409L_61_d.jpg",
-    "https://images.canadagoose.com/image/upload/w_1333,c_scale,f_auto,q_auto:best/v1634058169/product-image/2409L_61_o.png",
-    "https://images.canadagoose.com/image/upload/w_1333,c_scale,f_auto,q_auto:best/v1634058159/product-image/2409L_61_p.png",
-];
-
-const textAttributesSet = [
-    {
-        displayValue: "Small",
-        value: "S",
-        id: "Small",
-    },
-    {
-        displayValue: "Medium",
-        value: "M",
-        id: "Medium",
-    },
-    {
-        displayValue: "Large",
-        value: "L",
-        id: "Large",
-    },
-    {
-        displayValue: "Extra Large",
-        value: "XL",
-        id: "Extra Large",
-    },
-];
-
-const swatchAttributesSet = [
-    {
-        displayValue: "Green",
-        value: "#44FF03",
-        id: "Green",
-    },
-    {
-        displayValue: "Cyan",
-        value: "#03FFF7",
-        id: "Cyan",
-    },
-    {
-        displayValue: "Blue",
-        value: "#030BFF",
-        id: "Blue",
-    },
-    {
-        displayValue: "Black",
-        value: "#000000",
-        id: "Black",
-    },
-    {
-        displayValue: "White",
-        value: "#FFFFFF",
-        id: "White",
-    },
-];
-
 export const ProductDetials: React.FC<ProductDetailsInterface> = ({
+    title,
+    price,
+    attributeSets,
+    gallery,
     description,
 }) => {
     return (
@@ -114,26 +58,38 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                 {/* Product Attributes, description, price and etc */}
                 <div className="basis-1/3 ">
                     <div>
-                        <p className="text-3xl font-semibold">Price</p>
+                        <p className="text-3xl font-semibold">{title}</p>
                     </div>
-                    <div className="mt-4">
-                        <p className="subtitle robotcondensed">size:</p>
-                        <div className="mt-2">
-                            <TextAttributesSet
-                                attributeSetItems={textAttributesSet}
-                            />
-                        </div>
-                    </div>
-                    <div className="mt-4">
-                        <p className="subtitle robotcondensed">color:</p>
-                        <SwatchAttributesSet
-                            attributeSetItems={swatchAttributesSet}
-                        />
-                    </div>
+                    {attributeSets.map((set) => {
+                        return (
+                            <div className="mt-4">
+                                <p className="subtitle robotcondensed">size:</p>
+                                <div className="mt-2">
+                                    {!set.type ? (
+                                        <p>Attribute set type not provided</p>
+                                    ) : set.type === "swatch" ? (
+                                        <SwatchAttributesSet
+                                            attributeSetItems={
+                                                set.attributeSetItems
+                                            }
+                                        />
+                                    ) : set.type === "text" ? (
+                                        <TextAttributesSet
+                                            attributeSetItems={
+                                                set.attributeSetItems
+                                            }
+                                        />
+                                    ) : (
+                                        <p>Attribute set type not recognized</p>
+                                    )}
+                                </div>
+                            </div>
+                        );
+                    })}
 
                     <div className="mt-4">
                         <p className="subtitle robotcondensed">price:</p>
-                        <p className="font-bold text-2xl">$50.00</p>
+                        <p className="font-bold text-2xl">{price}</p>
                     </div>
                     <div className="mt-4">
                         <button className="btn btn-primary py-2.5">

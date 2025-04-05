@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal } from "../Framework/Modal";
 
 import { CartItem } from "./CartItem";
@@ -7,7 +7,6 @@ import { AttributeSetType } from "../../types";
 interface CartModalProps {
     isModalOpen: boolean;
 }
-
 
 const attributeSets: AttributeSetType[] = [
     {

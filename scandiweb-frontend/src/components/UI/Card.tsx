@@ -1,4 +1,4 @@
-import cartWhite from "../assets/cart-white.svg";
+import cartWhite from "../../assets/cart-white.svg";
 
 interface CardProps {
     imgPath?: string;
