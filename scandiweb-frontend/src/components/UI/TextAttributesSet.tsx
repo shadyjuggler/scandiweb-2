@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { AttributesSetProps } from "../Interfaces/AttributesSetProps";
+import { AttributeSetProps } from "../Interfaces/AttributeSetProps";
 
-export const TextAttributesSet: React.FC<AttributesSetProps> = ({
-    data,
+export const TextAttributesSet: React.FC<AttributeSetProps> = ({
+    isSmall = false,
+    attributeSetItems,
     onSelect,
 }) => {
     const [active, setActive] = useState<number>(0);
@@ -13,8 +14,8 @@ export const TextAttributesSet: React.FC<AttributesSetProps> = ({
     };
 
     return (
-        <div className="flex gap-3">
-            {data.map((attribute, i) => {
+        <div className={`${isSmall && "small"} flex gap-3`}>
+            {attributeSetItems.map((attribute, i) => {
                 return (
                     <span
                         key={attribute.id}

@@ -79,7 +79,6 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
     return (
         <section id="product-details" className="py-16">
             <div className="flex gap-16">
-
                 {/* Product Gallery */}
                 <div className="basis-2/3 flex relative">
                     <div className="basis-1/5">
@@ -98,7 +97,7 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                         >
                             {gallery.map((url) => {
                                 return (
-                                    <Slide>
+                                    <Slide key={url}>
                                         <div
                                             className={`pd-slide`}
                                             style={{
@@ -111,7 +110,6 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                         </Slider>
                     </div>
                 </div>
-                
 
                 {/* Product Attributes, description, price and etc */}
                 <div className="basis-1/3 ">
@@ -119,18 +117,22 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                         <p className="text-3xl font-semibold">Price</p>
                     </div>
                     <div className="mt-4">
-                        <p className="subtitle">size:</p>
+                        <p className="subtitle robotcondensed">size:</p>
                         <div className="mt-2">
-                            <TextAttributesSet data={textAttributesSet} />
+                            <TextAttributesSet
+                                attributeSetItems={textAttributesSet}
+                            />
                         </div>
                     </div>
                     <div className="mt-4">
-                        <p className="subtitle">color:</p>
-                        <SwatchAttributesSet data={swatchAttributesSet} />
+                        <p className="subtitle robotcondensed">color:</p>
+                        <SwatchAttributesSet
+                            attributeSetItems={swatchAttributesSet}
+                        />
                     </div>
 
                     <div className="mt-4">
-                        <p className="subtitle">price:</p>
+                        <p className="subtitle robotcondensed">price:</p>
                         <p className="font-bold text-2xl">$50.00</p>
                     </div>
                     <div className="mt-4">
@@ -139,7 +141,7 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                         </button>
                     </div>
                     <div className="mt-6">
-                        <p>{description}</p>
+                        <p className="roboto">{description}</p>
                     </div>
                 </div>
             </div>

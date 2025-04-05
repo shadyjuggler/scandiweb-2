@@ -2,6 +2,10 @@
     @apply min-w-15 py-2.5 px-2.5 border border-[#1D1F22] bg-white cursor-pointer transition-all;
 }
 
+.attribute-text:not(.attribute-text_active) {
+    @apply hover:shadow-sm shadow-black;
+}
+
 .attribute-text p {
     @apply text-center uppercase text-[#1D1F22];
 }
@@ -20,4 +24,16 @@
 
 .attribute-swatch_active {
     @apply border-2 border-white outline-2 outline-[#5ECE7B];
+}
+
+.small {
+    @apply !gap-1.5 flex-wrap;
+}
+
+.small .attribute-text {
+    @apply min-w-6 h-6 text-sm p-0 flex justify-center items-center;
+}
+
+.small .attribute-swatch {
+    @apply w-5 h-5;
 }

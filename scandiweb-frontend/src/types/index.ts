@@ -4,4 +4,9 @@ export type AttributeType = {
     id: number | string,
 }
 
-export type AttributeSetType = "text" | "swatch";
+export type AttributeSetType = {
+    attributeSetItems: AttributeType[],
+    name?: string,
+    type?: "text" | "swatch"
+}
+

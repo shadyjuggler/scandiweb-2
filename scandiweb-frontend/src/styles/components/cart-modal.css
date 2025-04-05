@@ -1,0 +1,12 @@
+.cartModal-bg {
+    @apply top-[98px] bg-black/50 w-full h-full;
+    height: calc(100vh - 98px);
+}
+
+.cartModal-bg .container {
+    @apply flex items-start justify-end h-full;
+}
+
+.cartModal {
+    @apply bg-white py-8 px-4 flex flex-col w-full max-w-[325px];
+}

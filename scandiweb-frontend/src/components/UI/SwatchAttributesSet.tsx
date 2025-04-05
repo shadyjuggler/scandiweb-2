@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { AttributesSetProps } from "../Interfaces/AttributesSetProps";
+import { AttributeSetProps } from "../Interfaces/AttributeSetProps";
 
-export const SwatchAttributesSet: React.FC<AttributesSetProps> = ({
-    data,
+export const SwatchAttributesSet: React.FC<AttributeSetProps> = ({
+    isSmall = false,
+    attributeSetItems,
     onSelect,
 }) => {
     const [active, setActive] = useState<number>(0);
@@ -13,8 +14,8 @@ export const SwatchAttributesSet: React.FC<AttributesSetProps> = ({
     };
 
     return (
-        <div className="flex gap-2">
-            {data.map((attribute, i) => {
+        <div className={`${isSmall && "small"} flex gap-2`}>
+            {attributeSetItems.map((attribute, i) => {
                 return (
                     <span
                         key={attribute.id}
@@ -22,7 +23,7 @@ export const SwatchAttributesSet: React.FC<AttributesSetProps> = ({
                         className={`attribute-swatch ${
                             active === i && "attribute-swatch_active"
                         }`}
-                        style={{backgroundColor: `${attribute.value}`}}
+                        style={{ backgroundColor: `${attribute.value}` }}
                     ></span>
                 );
             })}
