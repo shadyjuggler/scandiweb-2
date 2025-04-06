@@ -1,6 +1,5 @@
-import { ProductService } from "../../graphql/services/ProductService";
-import { useQueryService } from "../../hooks/useQueryService";
 import { ProductCard } from "../UI/ProductCard";
+import { useProducts } from "../../context/ProductContext";
 
 interface ProductListProps {
     category: string;
@@ -14,16 +13,14 @@ interface ProductListProps {
 }
 
 export const ProductList: React.FC<ProductListProps> = ({ category }) => {
-    const { data, isLoading, error } = useQueryService(["products"], () =>
-        ProductService.allProducts()
-    );
+    const { products, isLoading, error } = useProducts();
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
-    if (!data) return <p>No product found.</p>;
+    if (!products) return <p>No product found.</p>;
 
     // Sort products by category
-    const products = data.products.filter((product) => {
+    const filteredProducts = products.filter((product) => {
         if (category === "all") {
             return product;
         }
@@ -37,7 +34,7 @@ export const ProductList: React.FC<ProductListProps> = ({ category }) => {
             </div>
 
             <div className="mt-16 flex justify-center flex-wrap gap-x-8 gap-y-8">
-                {products.map((product, i: number) => {
+                {filteredProducts.map((product, i: number) => {
                     return <ProductCard data={product} key={i} />;
                 })}
             </div>

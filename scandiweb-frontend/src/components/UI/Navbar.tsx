@@ -8,16 +8,16 @@ import { CartModal } from "./CartModal";
 import { ProductCategories } from "./ProductCategories";
 
 interface NavbarProps {
-    setCategory: (category: string) => void;
+    setActiveCategory: (category: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ setCategory }) => {
+export const Navbar: React.FC<NavbarProps> = ({ setActiveCategory }) => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
     return (
         <nav id="navbar" className="py-4 flex items-center">
             <div className="basis-1/3 flex mt-4 justify-left">
-                <ProductCategories setCategory={setCategory}/>
+                <ProductCategories setActiveCategory={setActiveCategory} />
             </div>
 
             <div className="basis-1/3 flex justify-center">

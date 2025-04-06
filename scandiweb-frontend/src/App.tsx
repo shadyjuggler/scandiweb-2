@@ -79,7 +79,7 @@ function App() {
 
     return (
         <div className="container mx-auto">
-            <Navbar setCategory={setCategory} />
+            <Navbar setActiveCategory={setCategory} />
             <ProductList category={category} />
             {/* <ProductDetials
                 title="Jacket"
