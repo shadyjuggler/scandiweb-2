@@ -1,12 +1,26 @@
 import { fetchGraphQL } from "../client";
 
+import { ProductType } from "../../types";
+
 export class ProductService {
     static async allProducts() {
         const query = `
-            query AllProducts {
+            query Products {
                 products {
                     id
                     name
+                    attributes {
+                        name
+                        type
+                        items {
+                            display_value
+                            value
+                        }
+                    }
+                    gallery {
+                        url
+                        position
+                    }
                     prices {
                         amount
                         currency {
@@ -20,14 +34,49 @@ export class ProductService {
         `;
 
         return fetchGraphQL<{
-            products: {
-                id: string;
-                name: string;
-                description: string;
-                inStock: boolean;
-                prices: { amount: string; currency: { symbol: string } };
-            };
+            products: ProductType[];
         }>(query);
     }
-  
+
+    static async getProductById(id: string) {
+        const query = `
+        query Product($id: String!) {
+            product(id: $id) {
+                id
+                brand
+                description
+                name
+                inStock
+                attributes {
+                    name
+                    type
+                    items {
+                        display_value
+                        value
+                    }
+                }
+                category {
+                    id
+                    name
+                }
+                gallery {
+                    id
+                    url
+                    position
+                }
+                prices {
+                    id
+                    amount
+                    currency {
+                        symbol
+                        label
+                    }
+                }
+            }
+        }
+        `;
+
+        return fetchGraphQL<{
+            product: ProductType}>(query, { id: id });
+    }
 }

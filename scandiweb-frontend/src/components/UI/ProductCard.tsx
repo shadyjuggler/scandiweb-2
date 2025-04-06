@@ -1,27 +1,22 @@
 import cartWhite from "../../assets/cart-white.svg";
+import { ProductType } from "../../types";
 
 interface CardProps {
-    imgPath?: string;
-    title: string;
-    price: string;
-    isInStock: boolean;
+    data: ProductType;
 }
-export const Card: React.FC<CardProps> = ({
-    imgPath,
-    title,
-    price,
-    isInStock,
+export const ProductCard: React.FC<CardProps> = ({
+    data: { gallery, name, prices, inStock },
 }) => {
     return (
-        <div className="card relative">
+        <div className="productCard relative">
             <div className="card-placeholder relative">
-                {imgPath ? (
-                    <img src={imgPath} alt="card_image" />
+                {gallery.length !== 0 ? (
+                    <img src={gallery[0].url} alt="card_image" />
                 ) : (
                     "IMG PLACEHOLDER"
                 )}
 
-                {isInStock && (
+                {inStock && (
                     <span className="quickshop absolute right-10 -bottom-0 z-10 translate-y-1/2  opacity-0 pointer-events-none">
                         <img src={cartWhite} alt="cart" />
                     </span>
@@ -29,16 +24,16 @@ export const Card: React.FC<CardProps> = ({
             </div>
 
             <div className="mt-4">
-                <p className="text-lg">{title}</p>
+                <p className="text-lg">{name}</p>
             </div>
 
             <div className="mt-2">
-                <p className="text-lg font-medium">{price}</p>
+                <p className="text-lg font-medium">{`${prices[0].currency.label}${prices[0].amount}`}</p>
             </div>
 
             <div
                 className={`${
-                    isInStock ? "hidden" : "flex"
+                    inStock ? "hidden" : "flex"
                 } absolute top-0 left-0 outofstock`}
             >
                 <p className="text-2xl uppercase font-medium text-[#8D8F9A]">

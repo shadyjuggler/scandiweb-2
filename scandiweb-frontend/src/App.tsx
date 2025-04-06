@@ -6,7 +6,7 @@ import { AttributeSetType } from "./types";
 const attributeSets: AttributeSetType[] = [
     {
         name: "Size",
-        attributeSetItems: [
+        items: [
             {
                 displayValue: "Small",
                 value: "S",
@@ -32,7 +32,7 @@ const attributeSets: AttributeSetType[] = [
     },
     {
         name: "Color",
-        attributeSetItems: [
+        items: [
             {
                 displayValue: "Green",
                 value: "#44FF03",

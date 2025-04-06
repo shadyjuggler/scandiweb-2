@@ -1,6 +1,6 @@
 import { AttributeSetType } from "../../types"
 
-export interface AttributeSetProps extends AttributeSetType {
+export type AttributeSetProps = Partial<AttributeSetType> & {
     isSmall?: boolean,
     onSelect?: (value: string) => void
 }

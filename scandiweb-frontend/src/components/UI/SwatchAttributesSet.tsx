@@ -3,7 +3,7 @@ import { AttributeSetProps } from "../Interfaces/AttributeSetProps";
 
 export const SwatchAttributesSet: React.FC<AttributeSetProps> = ({
     isSmall = false,
-    attributeSetItems,
+    items,
     onSelect,
 }) => {
     const [active, setActive] = useState<number>(0);
@@ -13,9 +13,14 @@ export const SwatchAttributesSet: React.FC<AttributeSetProps> = ({
         if (onSelect) onSelect(value);
     };
 
+    // Items could be undefined, becuae Partial type was used on AttributeSetType to make AttributeSetProps
+    if (!items) {
+        return <p className="text-semibold">No attribute items provided</p>
+    }
+
     return (
         <div className={`${isSmall && "small"} flex gap-2`}>
-            {attributeSetItems.map((attribute, i) => {
+            {items?.map((attribute, i) => {
                 return (
                     <span
                         key={attribute.id}

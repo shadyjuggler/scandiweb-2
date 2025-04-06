@@ -68,17 +68,9 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                                     {!set.type ? (
                                         <p>Attribute set type not provided</p>
                                     ) : set.type === "swatch" ? (
-                                        <SwatchAttributesSet
-                                            attributeSetItems={
-                                                set.attributeSetItems
-                                            }
-                                        />
+                                        <SwatchAttributesSet items={set.items} />
                                     ) : set.type === "text" ? (
-                                        <TextAttributesSet
-                                            attributeSetItems={
-                                                set.attributeSetItems
-                                            }
-                                        />
+                                        <TextAttributesSet items={set.items} />
                                     ) : (
                                         <p>Attribute set type not recognized</p>
                                     )}

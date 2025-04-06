@@ -5,7 +5,7 @@
 @import "./components/pd-slider.css";
 @import "./components/cart-modal.css";
 @import "./components/attributes.css";
-@import "./components/card.css";
+@import "./components/productCard.css";
 
 @media (width >=96rem) {
     .container {
