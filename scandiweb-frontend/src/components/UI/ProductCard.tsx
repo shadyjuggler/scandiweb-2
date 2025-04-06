@@ -9,9 +9,9 @@ export const ProductCard: React.FC<CardProps> = ({
 }) => {
     return (
         <div className="productCard relative">
-            <div className="card-placeholder relative">
+            <div className="productCard-placeholder relative">
                 {gallery.length !== 0 ? (
-                    <img src={gallery[0].url} alt="card_image" />
+                    <img className="max-h-full" src={gallery[0].url} alt="card_image" />
                 ) : (
                     "IMG PLACEHOLDER"
                 )}
@@ -28,7 +28,7 @@ export const ProductCard: React.FC<CardProps> = ({
             </div>
 
             <div className="mt-2">
-                <p className="text-lg font-medium">{`${prices[0].currency.label}${prices[0].amount}`}</p>
+                <p className="text-lg font-medium">{`${prices[0].currency.symbol}${prices[0].amount}`}</p>
             </div>
 
             <div

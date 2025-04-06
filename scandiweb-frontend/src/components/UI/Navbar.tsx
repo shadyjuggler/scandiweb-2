@@ -5,15 +5,19 @@ import logo from "../../assets/logo.svg";
 
 import { CartModal } from "./CartModal";
 
-export const Navbar: React.FC = () => {
+import { ProductCategories } from "./ProductCategories";
+
+interface NavbarProps {
+    setCategory: (category: string) => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ setCategory }) => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
     return (
         <nav id="navbar" className="py-4 flex items-center">
             <div className="basis-1/3 flex mt-4 justify-left">
-                <p className="nav-link nav-link_active">ALL</p>
-                <p className="nav-link">TECH</p>
-                <p className="nav-link">CLOTHES</p>
+                <ProductCategories setCategory={setCategory}/>
             </div>
 
             <div className="basis-1/3 flex justify-center">
@@ -21,15 +25,18 @@ export const Navbar: React.FC = () => {
             </div>
 
             <div className="basis-1/3 relative flex justify-end">
-                <button onClick={() => setModalOpen(!isModalOpen)} className="w-10 h-10 flex items-center justify-center cursor-pointer">
+                <button
+                    onClick={() => setModalOpen(!isModalOpen)}
+                    className="w-10 h-10 flex items-center justify-center cursor-pointer"
+                >
                     <img src={cart} alt="cart" />
                 </button>
                 <div className="absolute">
-                    <CartModal
-                        isModalOpen={isModalOpen}
-                    />
+                    <CartModal isModalOpen={isModalOpen} />
                 </div>
-                <span className="absolute text-white rounded-full bg-[#1D1F22] w-6 h-6 text-center -top-1 -right-2 font-bold">1</span>
+                <span className="absolute text-white rounded-full bg-[#1D1F22] w-6 h-6 text-center -top-1 -right-2 font-bold">
+                    1
+                </span>
             </div>
         </nav>
     );

@@ -2,6 +2,7 @@ import { Navbar } from "./components/UI/Navbar";
 import { ProductList } from "./components/Pages/ProductList";
 import { ProductDetials } from "./components/Pages/ProductDetails";
 import { AttributeSetType } from "./types";
+import { useState } from "react";
 
 const attributeSets: AttributeSetType[] = [
     {
@@ -63,7 +64,6 @@ const attributeSets: AttributeSetType[] = [
     },
 ];
 
-
 const gallery = [
     "https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016105/product-image/2409L_61.jpg",
     "https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016107/product-image/2409L_61_a.jpg",
@@ -75,10 +75,12 @@ const gallery = [
 ];
 
 function App() {
+    const [category, setCategory] = useState<string>("all");
+
     return (
         <div className="container mx-auto">
-            <Navbar />
-            <ProductList category="All"/>
+            <Navbar setCategory={setCategory} />
+            <ProductList category={category} />
             {/* <ProductDetials
                 title="Jacket"
                 price="$50.00"

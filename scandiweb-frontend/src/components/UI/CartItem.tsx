@@ -18,7 +18,6 @@ export const CartItem: React.FC<CartItemProps> = ({
     attributeSets,
     imgUrl,
 }) => {
-
     return (
         <div className="flex gap-4">
             <div className="flex flex-col w-full min-w-[125px]">
@@ -39,16 +38,12 @@ export const CartItem: React.FC<CartItemProps> = ({
                                     ) : set.type === "swatch" ? (
                                         <SwatchAttributesSet
                                             isSmall={true}
-                                            attributeSetItems={
-                                                set.attributeSetItems
-                                            }
+                                            items={set.items}
                                         />
                                     ) : set.type === "text" ? (
                                         <TextAttributesSet
                                             isSmall={true}
-                                            attributeSetItems={
-                                                set.attributeSetItems
-                                            }
+                                            items={set.items}
                                         />
                                     ) : (
                                         <p className="text-sm">
@@ -100,7 +95,11 @@ export const CartItem: React.FC<CartItemProps> = ({
                 </button>
             </div>
             <div>
-                <img className="object-contain" src={imgUrl} alt={"product-image"} />
+                <img
+                    className="object-contain"
+                    src={imgUrl}
+                    alt={"product-image"}
+                />
             </div>
         </div>
     );

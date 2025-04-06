@@ -39,7 +39,7 @@ export type ProductType = {
     brand: string,
     inStock: boolean,
     description: string,
-    category: CurrencyType
+    category: CategoryType
     attributes: AttributeSetType[]
     gallery: ImageType[]
     prices: PriceType[]

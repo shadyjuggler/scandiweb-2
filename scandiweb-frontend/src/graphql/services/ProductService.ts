@@ -8,7 +8,10 @@ export class ProductService {
             query Products {
                 products {
                     id
+                    brand
+                    description
                     name
+                    inStock
                     attributes {
                         name
                         type
@@ -17,18 +20,23 @@ export class ProductService {
                             value
                         }
                     }
+                    category {
+                        id
+                        name
+                    }
                     gallery {
+                        id
                         url
                         position
                     }
                     prices {
+                        id
                         amount
                         currency {
                             symbol
+                            label
                         }
                     }
-                    description
-                    inStock
                 }
             }
         `;
@@ -77,6 +85,7 @@ export class ProductService {
         `;
 
         return fetchGraphQL<{
-            product: ProductType}>(query, { id: id });
+            product: ProductType;
+        }>(query, { id: id });
     }
 }
