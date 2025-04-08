@@ -3,7 +3,7 @@ import parse from "html-react-parser";
 
 export function parseHtmlSafe(htmlString: string) {
     const cleanHtml = DOMPurify.sanitize(htmlString, {
-        ALLOWED_TAGS: ["h1", "h2", "p"],
+        ALLOWED_TAGS: ["h1", "h2", "p"]
     });
 
     return parse(cleanHtml);

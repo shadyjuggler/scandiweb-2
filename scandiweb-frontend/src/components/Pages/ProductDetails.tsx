@@ -6,8 +6,11 @@ import { Slide } from "../Framework/Slide";
 import { AttributeSetType } from "../../types";
 
 import { useParams } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 import { useProductById } from "../../hooks/useProductById";
 import { parseHtmlSafe } from "../../styles/utils/parseHtmlSafe";
+import { useEffect, useState } from "react";
+import { AttributeSet } from "../UI/AttributeSet";
 
 interface ProductDetailsInterface {
     title: string;
@@ -24,11 +27,20 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
 
     const { product, isLoading, error } = useProductById(id);
 
+    const { addToCart } = useCart();
+
+    // Array where each index is attribute set from all product sets, each value is index of attribute within set (complex) 
+    const [productSelectedAttributes, setProductSelectedAttributes] = useState<number[]>([]); 
+
+    useEffect(() => {
+        setProductSelectedAttributes(Array(product?.attributes.length).fill(0));
+    }, [product]);
+
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
     if (!product) return <p>Product not found</p>;
 
-    const gallery = product.gallery.map((galleryItem) => galleryItem.url);
+    const gelleryUrls = product.gallery.map((galleryItem) => galleryItem.url);
 
     return (
         <section id="product-details" className="py-16">
@@ -43,13 +55,13 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
                             id="pd-slider"
                             autoScroll={false}
                             paginationClassName="pd-sliderPagination"
-                            paginationGallery={gallery}
+                            paginationGallery={gelleryUrls}
                             navigation={{
                                 btnNext: "pd-btnNext",
                                 btnPrev: "pd-btnPrev",
                             }}
                         >
-                            {gallery.map((url) => {
+                            {gelleryUrls.map((url) => {
                                 return (
                                     <Slide key={url}>
                                         <div
@@ -70,21 +82,23 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
                     <div>
                         <p className="text-3xl font-semibold">{product.name}</p>
                     </div>
-                    {product.attributes.map((set) => {
+                    {product.attributes.map((set, index) => {
                         return (
-                            <div className="mt-4">
+                            <div key={set.name} className="mt-4">
                                 <p className="subtitle robotcondensed">size:</p>
                                 <div className="mt-2">
                                     {!set.type ? (
                                         <p>Attribute set type not provided</p>
-                                    ) : set.type === "swatch" ? (
-                                        <SwatchAttributesSet
-                                            items={set.items}
-                                        />
-                                    ) : set.type === "text" ? (
-                                        <TextAttributesSet items={set.items} />
                                     ) : (
-                                        <p>Attribute set type not recognized</p>
+                                        <AttributeSet
+                                            type={set.type}
+                                            items={set.items}
+                                            onSelect={setProductSelectedAttributes}
+                                            orderIndex={index}
+                                            productSelectedAttributes={
+                                                productSelectedAttributes
+                                            }
+                                        />
                                     )}
                                 </div>
                             </div>
@@ -96,12 +110,18 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
                         <p className="font-bold text-2xl">{`${product.prices[0].currency.symbol}${product.prices[0].amount}`}</p>
                     </div>
                     <div className="mt-4">
-                        <button disabled={!product.inStock} className="btn btn-primary py-2.5">
+                        <button
+                            disabled={!product.inStock}
+                            onClick={() => addToCart(product, productSelectedAttributes)}
+                            className="btn btn-primary py-2.5"
+                        >
                             add to cart
                         </button>
                     </div>
                     <div className="mt-6">
-                        <p className="roboto">{parseHtmlSafe(product.description)}</p>
+                        <p className="roboto">
+                            {parseHtmlSafe(product.description)}
+                        </p>
                     </div>
                 </div>
             </div>

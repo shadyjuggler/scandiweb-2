@@ -26,6 +26,7 @@ export const ProductCategories: React.FC<ProductCategoriesProps> = ({
                 return (
                     <Link
                         to={"/"}
+                        key={category.name}
                         onClick={() => {
                             setActiveCategory(category.name);
                             setActiveTab(i);

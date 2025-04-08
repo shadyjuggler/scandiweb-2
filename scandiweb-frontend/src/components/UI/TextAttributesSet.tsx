@@ -1,35 +1,30 @@
-import { useState } from "react";
-import { AttributeSetProps } from "../Interfaces/AttributeSetProps";
+import { AttributeType } from "../../types";
 
-export const TextAttributesSet: React.FC<AttributeSetProps> = ({
+interface SwatchAttributeSet {
+    active: number;
+    isSmall: boolean;
+    items: AttributeType[];
+    onClick: (index: number) => void;
+}
+
+export const TextAttributesSet: React.FC<SwatchAttributeSet> = ({
     isSmall = false,
     items,
-    onSelect,
+    onClick,
+    active,
 }) => {
-    const [active, setActive] = useState<number>(0);
-
-    const onClick = (index: number, value: string) => {
-        setActive(index);
-        if (onSelect) onSelect(value);
-    };
-
-    // Items could be undefined, becuae Partial type was used on AttributeSetType to make AttributeSetProps
-    if (!items) {
-        return <p className="text-semibold">No attribute items provided</p>
-    }
-
     return (
         <div className={`${isSmall && "small"} flex gap-3`}>
             {items?.map((attribute, i) => {
                 return (
                     <span
                         key={attribute.id}
-                        onClick={() => onClick(i, attribute.displayValue)}
-                        className={`attribute-text ${active === i && "attribute-text_active"}`}
+                        onClick={() => onClick(i)}
+                        className={`attribute-text ${
+                            active === i && "attribute-text_active"
+                        }`}
                     >
-                        <p className="sourcesanspro">
-                            {attribute.value} 
-                        </p>
+                        <p className="sourcesanspro">{attribute.value}</p>
                     </span>
                 );
             })}

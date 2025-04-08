@@ -44,3 +44,9 @@ export type ProductType = {
     gallery: ImageType[]
     prices: PriceType[]
 };
+
+export type CartProduct = {
+    product: ProductType,
+    quantity: number,
+    productSelectedAttributes: number[]
+}
