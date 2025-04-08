@@ -7,6 +7,7 @@ import { AttributeSetType } from "../../types";
 
 import { useParams } from "react-router-dom";
 import { useProductById } from "../../hooks/useProductById";
+import { parseHtmlSafe } from "../../styles/utils/parseHtmlSafe";
 
 interface ProductDetailsInterface {
     title: string;
@@ -95,12 +96,12 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
                         <p className="font-bold text-2xl">{`${product.prices[0].currency.symbol}${product.prices[0].amount}`}</p>
                     </div>
                     <div className="mt-4">
-                        <button className="btn btn-primary py-2.5">
+                        <button disabled={!product.inStock} className="btn btn-primary py-2.5">
                             add to cart
                         </button>
                     </div>
                     <div className="mt-6">
-                        <p className="roboto">{product.description}</p>
+                        <p className="roboto">{parseHtmlSafe(product.description)}</p>
                     </div>
                 </div>
             </div>

@@ -1,14 +1,14 @@
 
 .pd-slide {
-    @apply bg-no-repeat bg-center bg-contain min-h-[478px] bg-slate-100;
+    @apply bg-no-repeat bg-center bg-contain min-h-[478px] bg-white;
 }
 
 .pd-sliderPagination {
-    @apply absolute left-0 top-0 w-1/5 h-full -left-1/2 flex-col items-center;
+    @apply absolute left-0 top-0 w-1/5 h-full -left-1/2 flex-col items-center cursor-pointer;
 }
 
 .pd-sliderPagination .pagination-bullet {
-    @apply rounded-none aspect-square min-h-20 w-20 bg-no-repeat bg-center bg-contain bg-slate-200;
+    @apply rounded-none aspect-square min-h-20 w-20 bg-no-repeat bg-center bg-contain bg-white cursor-pointer;
     aspect-ratio: 1;
 }
 

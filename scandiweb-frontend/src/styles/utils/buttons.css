@@ -6,6 +6,10 @@
     @apply bg-[#5ECE7B] text-white border-[#5ECE7B] hover:text-[#5ECE7B] hover:bg-white;
 }
 
+.btn-primary:disabled {
+    @apply opacity-80 pointer-events-none;
+}
+
 .btn-quantity {
     @apply border border-[#1D1F22] w-6 h-6 flex justify-center items-center stroke-[#1D1F22] hover:stroke-white hover:bg-[#1D1F22] cursor-pointer;
 }
