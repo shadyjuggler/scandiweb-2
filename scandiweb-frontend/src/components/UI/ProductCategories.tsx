@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { CategoryService } from "../../graphql/services/CategoryService";
-import { useQueryService } from "../../hooks/useQueryService";
+import { Link } from "react-router-dom";
 
 import { useCategories } from "../../context/CategoryContext";
 
@@ -25,7 +24,8 @@ export const ProductCategories: React.FC<ProductCategoriesProps> = ({
         <>
             {extendedCategories.map((category, i) => {
                 return (
-                    <p
+                    <Link
+                        to={"/"}
                         onClick={() => {
                             setActiveCategory(category.name);
                             setActiveTab(i);
@@ -35,7 +35,7 @@ export const ProductCategories: React.FC<ProductCategoriesProps> = ({
                         }`}
                     >
                         {category.name}
-                    </p>
+                    </Link>
                 );
             })}
         </>

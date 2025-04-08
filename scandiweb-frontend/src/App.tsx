@@ -4,6 +4,8 @@ import { ProductDetials } from "./components/Pages/ProductDetails";
 import { AttributeSetType } from "./types";
 import { useState } from "react";
 
+import { Routes, Route } from "react-router-dom";
+
 const attributeSets: AttributeSetType[] = [
     {
         name: "Size",
@@ -80,14 +82,24 @@ function App() {
     return (
         <div className="container mx-auto">
             <Navbar setActiveCategory={setCategory} />
-            <ProductList category={category} />
-            {/* <ProductDetials
-                title="Jacket"
-                price="$50.00"
-                gallery={gallery}
-                attributeSets={attributeSets}
-                description="Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.F"
-            /> */}
+            <Routes>
+                <Route
+                    path="/"
+                    element={<ProductList category={category} />}
+                ></Route>
+                <Route
+                    path="/product/:id"
+                    element={
+                        <ProductDetials
+                            title="Jacket"
+                            price="$50.00"
+                            gallery={gallery}
+                            attributeSets={attributeSets}
+                            description="Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.F"
+                        />
+                    }
+                ></Route>
+            </Routes>
         </div>
     );
 }

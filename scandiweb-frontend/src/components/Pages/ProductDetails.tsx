@@ -5,6 +5,9 @@ import { Slider } from "../Framework/Slider";
 import { Slide } from "../Framework/Slide";
 import { AttributeSetType } from "../../types";
 
+import { useParams } from "react-router-dom";
+import { useProductById } from "../../hooks/useProductById";
+
 interface ProductDetailsInterface {
     title: string;
     price: string;
@@ -13,13 +16,19 @@ interface ProductDetailsInterface {
     description: string;
 }
 
-export const ProductDetials: React.FC<ProductDetailsInterface> = ({
-    title,
-    price,
-    attributeSets,
-    gallery,
-    description,
-}) => {
+export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
+    const { id } = useParams<{ id: string }>();
+
+    if (!id) return <p>Invalid id product id parameter</p>;
+
+    const { product, isLoading, error } = useProductById(id);
+
+    if (isLoading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+    if (!product) return <p>Product not found</p>;
+
+    const gallery = product.gallery.map((galleryItem) => galleryItem.url);
+
     return (
         <section id="product-details" className="py-16">
             <div className="flex gap-16">
@@ -58,9 +67,9 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                 {/* Product Attributes, description, price and etc */}
                 <div className="basis-1/3 ">
                     <div>
-                        <p className="text-3xl font-semibold">{title}</p>
+                        <p className="text-3xl font-semibold">{product.name}</p>
                     </div>
-                    {attributeSets.map((set) => {
+                    {product.attributes.map((set) => {
                         return (
                             <div className="mt-4">
                                 <p className="subtitle robotcondensed">size:</p>
@@ -68,7 +77,9 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                                     {!set.type ? (
                                         <p>Attribute set type not provided</p>
                                     ) : set.type === "swatch" ? (
-                                        <SwatchAttributesSet items={set.items} />
+                                        <SwatchAttributesSet
+                                            items={set.items}
+                                        />
                                     ) : set.type === "text" ? (
                                         <TextAttributesSet items={set.items} />
                                     ) : (
@@ -81,7 +92,7 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
 
                     <div className="mt-4">
                         <p className="subtitle robotcondensed">price:</p>
-                        <p className="font-bold text-2xl">{price}</p>
+                        <p className="font-bold text-2xl">{`${product.prices[0].currency.symbol}${product.prices[0].amount}`}</p>
                     </div>
                     <div className="mt-4">
                         <button className="btn btn-primary py-2.5">
@@ -89,7 +100,7 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({
                         </button>
                     </div>
                     <div className="mt-6">
-                        <p className="roboto">{description}</p>
+                        <p className="roboto">{product.description}</p>
                     </div>
                 </div>
             </div>

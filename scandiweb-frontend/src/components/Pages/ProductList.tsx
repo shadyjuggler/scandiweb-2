@@ -1,5 +1,7 @@
 import { ProductCard } from "../UI/ProductCard";
 import { useProducts } from "../../context/ProductContext";
+import { ucfirst } from "../../utils/ucfirst";
+import { Link } from "react-router-dom";
 
 interface ProductListProps {
     category: string;
@@ -30,12 +32,16 @@ export const ProductList: React.FC<ProductListProps> = ({ category }) => {
     return (
         <section id="product-list" className="py-16">
             <div>
-                <h1 className="text-4xl">{category}</h1>
+                <h1 className="text-4xl">{ucfirst(category)}</h1>
             </div>
 
             <div className="mt-16 flex justify-center flex-wrap gap-x-8 gap-y-8">
                 {filteredProducts.map((product, i: number) => {
-                    return <ProductCard data={product} key={i} />;
+                    return (
+                        <Link to={`product/${product.id}`}>
+                            <ProductCard data={product} key={i} />
+                        </Link>
+                    );
                 })}
             </div>
         </section>

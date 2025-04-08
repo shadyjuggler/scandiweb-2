@@ -11,7 +11,11 @@ export const ProductCard: React.FC<CardProps> = ({
         <div className="productCard relative">
             <div className="productCard-placeholder relative">
                 {gallery.length !== 0 ? (
-                    <img className="max-h-full" src={gallery[0].url} alt="card_image" />
+                    <img
+                        className="max-h-full"
+                        src={gallery[0].url}
+                        alt="card_image"
+                    />
                 ) : (
                     "IMG PLACEHOLDER"
                 )}
