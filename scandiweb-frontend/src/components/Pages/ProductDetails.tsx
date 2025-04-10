@@ -1,14 +1,12 @@
-import { TextAttributesSet } from "../UI/TextAttributesSet";
-import { SwatchAttributesSet } from "../UI/SwatchAttributesSet";
-
 import { Slider } from "../Framework/Slider";
 import { Slide } from "../Framework/Slide";
-import { AttributeSetType } from "../../types";
+import { AttributeSetType } from "../../types/resource";
 
 import { useParams } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import { useModal } from "../../context/ModalContext";
 import { useProductById } from "../../hooks/useProductById";
-import { parseHtmlSafe } from "../../styles/utils/parseHtmlSafe";
+import { parseHtmlSafe } from "../../utils/parseHtmlSafe";
 import { useEffect, useState } from "react";
 import { AttributeSet } from "../UI/AttributeSet";
 
@@ -28,9 +26,12 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
     const { product, isLoading, error } = useProductById(id);
 
     const { addToCart } = useCart();
+    const { toggleModalVisibility } = useModal();
 
-    // Array where each index is attribute set from all product sets, each value is index of attribute within set (complex) 
-    const [productSelectedAttributes, setProductSelectedAttributes] = useState<number[]>([]); 
+    // Array where each index is attribute set from all product sets, each value is index of attribute within set (complex)
+    const [productSelectedAttributes, setProductSelectedAttributes] = useState<
+        number[]
+    >([]);
 
     useEffect(() => {
         setProductSelectedAttributes(Array(product?.attributes.length).fill(0));
@@ -43,7 +44,7 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
     const gelleryUrls = product.gallery.map((galleryItem) => galleryItem.url);
 
     return (
-        <section id="product-details" className="py-16">
+        <section id="product-details" className="mt-20 py-16">
             <div className="flex gap-16">
                 {/* Product Gallery */}
                 <div className="basis-2/3 flex relative">
@@ -93,7 +94,9 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
                                         <AttributeSet
                                             type={set.type}
                                             items={set.items}
-                                            onSelect={setProductSelectedAttributes}
+                                            onSelect={
+                                                setProductSelectedAttributes
+                                            }
                                             orderIndex={index}
                                             productSelectedAttributes={
                                                 productSelectedAttributes
@@ -112,16 +115,19 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
                     <div className="mt-4">
                         <button
                             disabled={!product.inStock}
-                            onClick={() => addToCart(product, productSelectedAttributes)}
+                            onClick={() => {
+                                addToCart(product, productSelectedAttributes);
+                                toggleModalVisibility(true);
+                            }}
                             className="btn btn-primary py-2.5"
                         >
                             add to cart
                         </button>
                     </div>
                     <div className="mt-6">
-                        <p className="roboto">
+                        <div className="roboto">
                             {parseHtmlSafe(product.description)}
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>

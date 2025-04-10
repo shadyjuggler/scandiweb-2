@@ -1,4 +1,4 @@
-import { AttributeSetType } from "../../types";
+import { AttributeSetType } from "../../types/resource";
 import { AttributeSet } from "./AttributeSet";
 
 import { useCart } from "../../context/CartContext";

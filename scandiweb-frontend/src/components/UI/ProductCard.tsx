@@ -1,12 +1,14 @@
-import cartWhite from "../../assets/cart-white.svg";
-import { ProductType } from "../../types";
+import { ProductType } from "../../types/resource";
+
+import { QuickShop } from "./QuickShop";
 
 interface CardProps {
-    data: ProductType;
+    product: ProductType;
 }
-export const ProductCard: React.FC<CardProps> = ({
-    data: { gallery, name, prices, inStock },
-}) => {
+export const ProductCard: React.FC<CardProps> = ({ product }) => {
+
+    const { gallery, name, prices, inStock } = product;
+
     return (
         <div className="productCard relative">
             <div className="productCard-placeholder relative">
@@ -20,11 +22,7 @@ export const ProductCard: React.FC<CardProps> = ({
                     "IMG PLACEHOLDER"
                 )}
 
-                {inStock && (
-                    <span className="quickshop absolute right-10 -bottom-0 z-10 translate-y-1/2  opacity-0 pointer-events-none">
-                        <img src={cartWhite} alt="cart" />
-                    </span>
-                )}
+                {inStock && <QuickShop product={product} />}
             </div>
 
             <div className="mt-4">

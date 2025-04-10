@@ -6,6 +6,7 @@ type ModalProps = {
     children: ReactNode;
     className?: string;
     backdropClassName?: string;
+    onBackdropClick?: () => void 
 };
 
 export const Modal: React.FC<ModalProps> = ({
@@ -13,6 +14,7 @@ export const Modal: React.FC<ModalProps> = ({
     children,
     className = "",
     backdropClassName = "",
+    onBackdropClick
 }) => {
     const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -34,7 +36,8 @@ export const Modal: React.FC<ModalProps> = ({
     const modalContent = (
         <div
             ref={modalRef}
-            className={`absolute top-0 left-0 z-50 flex items-center justify-center ${backdropClassName}`}
+            onClick={() => onBackdropClick && onBackdropClick()}
+            className={`fixed top-0 left-0 z-50 flex items-center justify-center ${backdropClassName}`}
             role="dialog"
             aria-modal="true"
         >

@@ -1,7 +1,7 @@
 import { Navbar } from "./components/UI/Navbar";
 import { ProductList } from "./components/Pages/ProductList";
 import { ProductDetials } from "./components/Pages/ProductDetails";
-import { AttributeSetType } from "./types";
+import { AttributeSetType } from "./types/resource";
 import { useState } from "react";
 
 import { Routes, Route } from "react-router-dom";

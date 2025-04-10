@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "./utils/typography.css";
 @import "./utils/buttons.css";
+@import "./utils/scrollbar.css";
 @import "./components/quickshop.css";
 @import "./components/pd-slider.css";
 @import "./components/cart-modal.css";

@@ -3,8 +3,6 @@ import { AttributeSetProps } from "../Interfaces/AttributeSetProps";
 import { TextAttributesSet } from "./TextAttributesSet";
 import { SwatchAttributesSet } from "./SwatchAttributesSet";
 
-import { useCart } from "../../context/CartContext";
-
 export const AttributeSet: React.FC<AttributeSetProps> = ({
     defaultActiveAttributeIndex = 0,
     isSmall = false,

@@ -8,5 +8,5 @@
 }
 
 .cartModal {
-    @apply bg-white py-8 px-4 flex flex-col w-full max-w-[325px];
+    @apply bg-white py-8 px-4 flex flex-col w-full max-w-[340px];
 }

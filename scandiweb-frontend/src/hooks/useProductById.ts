@@ -1,5 +1,5 @@
 import { useProducts } from "../context/ProductContext";
-import { ProductType } from "../types";
+import { ProductType } from "../types/resource";
 
 /**
  * Custom hook to get specific product by its id from context.

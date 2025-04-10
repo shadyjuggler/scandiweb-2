@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { useQueryService } from "../hooks/useQueryService";
 import { ProductService } from "../graphql/services/ProductService";
-import { ProductType } from "../types";
+import { ProductType } from "../types/resource";
 
 type ProductContextType = {
     products: ProductType[] | null;

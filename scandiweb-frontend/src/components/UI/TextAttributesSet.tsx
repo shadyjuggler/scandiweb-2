@@ -1,13 +1,6 @@
-import { AttributeType } from "../../types";
+import { RenderAttributeSetProps } from "../Interfaces/AttributeSetProps";
 
-interface SwatchAttributeSet {
-    active: number;
-    isSmall: boolean;
-    items: AttributeType[];
-    onClick: (index: number) => void;
-}
-
-export const TextAttributesSet: React.FC<SwatchAttributeSet> = ({
+export const TextAttributesSet: React.FC<RenderAttributeSetProps> = ({
     isSmall = false,
     items,
     onClick,

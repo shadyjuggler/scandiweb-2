@@ -1,6 +1,6 @@
 import { fetchGraphQL } from "../client";
 
-import { ProductType } from "../../types";
+import { ProductType } from "../../types/resource";
 
 export class ProductService {
     static async allProducts() {

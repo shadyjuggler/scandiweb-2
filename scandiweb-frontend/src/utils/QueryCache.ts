@@ -1,5 +1,3 @@
-// src/utils/QueryCache.ts
-
 type CacheEntry<T> = {
     data: T;
 };

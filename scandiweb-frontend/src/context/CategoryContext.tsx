@@ -1,8 +1,8 @@
 // src/context/CategoryContext.tsx
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { useQueryService } from "../hooks/useQueryService";
 import { CategoryService } from "../graphql/services/CategoryService";
-import { CategoryType } from "../types";
+import { CategoryType } from "../types/resource";
 
 type CategoryContextType = {
     categories: CategoryType[] | null;
@@ -10,18 +10,27 @@ type CategoryContextType = {
     error: string | null;
 };
 
-const CategoryContext = createContext<CategoryContextType | undefined>(undefined);
+const CategoryContext = createContext<CategoryContextType | undefined>(
+    undefined
+);
 
-export const CategoryProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { data, isLoading, error } = useQueryService(
-        ["categories"],
-        () => CategoryService.allCategories()
+export const CategoryProvider: React.FC<{ children: React.ReactNode }> = ({
+    children,
+}) => {
+    const { data, isLoading, error } = useQueryService(["categories"], () =>
+        CategoryService.allCategories()
     );
+
+    const extendedCategories = useMemo(() => {
+        if (!data) return null;
+
+        return [{ id: 0, name: "all" }, ...data.categories];
+    }, [data]);
 
     return (
         <CategoryContext.Provider
             value={{
-                categories: data?.categories || null,
+                categories: extendedCategories,
                 isLoading,
                 error,
             }}

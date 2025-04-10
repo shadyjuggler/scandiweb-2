@@ -2,15 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useCategories } from "../../context/CategoryContext";
+import { useRuntime } from "../../context/RunTimeContext";
 
-interface ProductCategoriesProps {
-    setActiveCategory: (category: string) => void;
-}
 
-export const ProductCategories: React.FC<ProductCategoriesProps> = ({
-    setActiveCategory,
-}) => {
+export const ProductCategories: React.FC = () => {
     const { categories, isLoading, error } = useCategories();
+    const {setActiveCategory} = useRuntime();
 
     const [activeTab, setActiveTab] = useState<number>(0);
 
@@ -18,11 +15,10 @@ export const ProductCategories: React.FC<ProductCategoriesProps> = ({
     if (error) return <p>Error: {error}</p>;
     if (!categories) return <p>No product found.</p>;
 
-    const extendedCategories = [{ name: "all" }, ...categories];
 
     return (
         <>
-            {extendedCategories.map((category, i) => {
+            {categories.map((category, i) => {
                 return (
                     <Link
                         to={"/"}

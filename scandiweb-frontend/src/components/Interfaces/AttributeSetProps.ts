@@ -1,4 +1,4 @@
-import { AttributeSetType } from "../../types";
+import { AttributeSetType } from "../../types/resource";
 
 export type AttributeSetProps = Partial<AttributeSetType> & {
     defaultActiveAttributeIndex?: number;

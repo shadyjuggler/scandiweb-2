@@ -4,25 +4,30 @@ import { Modal } from "../Framework/Modal";
 import { CartItem } from "./CartItem";
 
 import { useCart } from "../../context/CartContext";
+import { useModal } from "../../context/ModalContext";
+
+import { pluralize } from "../../utils/plurarize";
 
 interface CartModalProps {
     isModalOpen: boolean;
 }
 
 export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
-    const { cartProducts, total } = useCart();
+    const { cartProducts, stats: {totalPrice, productQuantity} } = useCart();
+    const {toggleModalVisibility} = useModal();
 
     return (
         <Modal
+            onBackdropClick={() => toggleModalVisibility(false)}
             isOpen={isModalOpen}
             className="cartModal"
             backdropClassName="cartModal-bg"
         >
             <p className="font-bold">
-                My Bag, <span className="font-medium">{`${cartProducts.length} items`}</span>
+                My Bag, <span className="font-medium">{`${pluralize(productQuantity, 'item')}`}</span>
             </p>
 
-            <div className="mt-8 flex flex-col gap-8">
+            <div className="mt-8 px-1 flex flex-col gap-8 max-h-90 overflow-y-scroll scrollbar">
 
                 {/* Map Cart Products */}
 
@@ -53,7 +58,7 @@ export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
 
             <div className="mt-8 flex justify-between">
                 <p className="text-lg font-medium roboto">Total</p>
-                <p className="subtitle">{`$${total}`}</p>
+                <p className="subtitle">{`$${totalPrice}`}</p>
             </div>
 
             <div className="mt-8">

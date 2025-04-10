@@ -1,0 +1,7 @@
+.scrollbar::-webkit-scrollbar {
+    @apply appearance-none bg-slate-300/50 w-1;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-500/50;
+}

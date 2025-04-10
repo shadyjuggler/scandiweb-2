@@ -1,29 +1,20 @@
-// src/context/CategoryContext.tsx
 import React, { createContext, useContext, useMemo } from "react";
-import { CartProduct, ProductType } from "../types";
 import { useState } from "react";
 
-import { arraysEqual } from "../styles/utils/arraysEqual";
+import { arraysEqual } from "../utils/arraysEqual";
+
+import * as types from "../types/cartContext";
 
 type CartContextType = {
-    cartProducts: CartProduct[];
-    total: number;
-    addToCart: (
-        product: ProductType,
-        productSelectedAttributes: number[]
-    ) => void;
-    increaseQuantity: (
-        productId: string,
-        productSelectedAttributes: number[]
-    ) => void;
-    decreaseQuantity: (
-        productId: string,
-        productSelectedAttributes: number[]
-    ) => void;
-    removeFromCart: (
-        productId: string,
-        productSelectedAttributes: number[]
-    ) => void;
+    cartProducts: types.CartProduct[];
+    stats: {
+        totalPrice: number;
+        productQuantity: number;
+    };
+    addToCart: types.AddToCart;
+    increaseQuantity: types.ModifyCartQuantity;
+    decreaseQuantity: types.ModifyCartQuantity;
+    removeFromCart: types.RemoveFromCart;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -31,12 +22,9 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
-    const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
+    const [cartProducts, setCartProducts] = useState<types.CartProduct[]>([]);
 
-    const addToCart = (
-        product: ProductType,
-        productSelectedAttributes: number[]
-    ) => {
+    const addToCart: types.AddToCart = (product, productSelectedAttributes) => {
         setCartProducts((prev) => {
             // Look for product dublicates with same attributes, save refference of CartProduct object to variable 'existing'
             const existing = prev.find(
@@ -71,9 +59,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         });
     };
 
-    const removeFromCart = (
-        productId: string,
-        productSelectedAttributes: number[]
+    const removeFromCart: types.RemoveFromCart = (
+        productId,
+        productSelectedAttributes
     ) => {
         setCartProducts((prev) =>
             prev.filter(
@@ -89,9 +77,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         );
     };
 
-    const increaseQuantity = (
-        productId: string,
-        productSelectedAttributes: number[]
+    const increaseQuantity: types.ModifyCartQuantity = (
+        productId,
+        productSelectedAttributes
     ) => {
         setCartProducts((prev) =>
             prev.map((p) =>
@@ -106,9 +94,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         );
     };
 
-    const decreaseQuantity = (
-        productId: string,
-        productSelectedAttributes: number[]
+    const decreaseQuantity: types.ModifyCartQuantity = (
+        productId,
+        productSelectedAttributes
     ) => {
         setCartProducts((prev) =>
             prev.flatMap((p) => {
@@ -130,18 +118,24 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         );
     };
 
-    const total = useMemo(() => {
-        return cartProducts.reduce((a, cartProduct) => {
+    const stats = useMemo(() => {
+        const totalPrice = cartProducts.reduce((a, cartProduct) => {
             const price = cartProduct.product.prices?.[0]?.amount ?? 0;
             return Number((a + price * cartProduct.quantity).toFixed(2));
         }, 0);
+
+        const productQuantity = cartProducts.reduce((a, c) => {
+            return a + c.quantity;
+        }, 0);
+
+        return { totalPrice, productQuantity };
     }, [cartProducts]);
 
     return (
         <CartContext.Provider
             value={{
                 cartProducts,
-                total,
+                stats,
                 addToCart,
                 removeFromCart,
                 increaseQuantity,
