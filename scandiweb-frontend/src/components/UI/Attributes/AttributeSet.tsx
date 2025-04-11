@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AttributeSetProps } from "../Interfaces/AttributeSetProps";
+import { AttributeSetProps } from "../../Interfaces";
 import { TextAttributesSet } from "./TextAttributesSet";
 import { SwatchAttributesSet } from "./SwatchAttributesSet";
 

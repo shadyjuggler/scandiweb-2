@@ -2,6 +2,8 @@
 @import "./utils/typography.css";
 @import "./utils/buttons.css";
 @import "./utils/scrollbar.css";
+@import "./utils/spinner.css";
+
 @import "./components/quickshop.css";
 @import "./components/pd-slider.css";
 @import "./components/cart-modal.css";
@@ -12,13 +14,4 @@
     .container {
         max-width: 80rem;
     }
-}
-
-.scrollbar-hidden::-webkit-scrollbar {
-    display: none;
-}
-
-.scrollbar-hidden {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
 }

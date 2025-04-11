@@ -6,5 +6,8 @@
     "5_create_product_prices_table.php",
     "6_create_attributes_table.php",
     "7_create_attribute_items_table.php",
-    "8_create_product_attributes_table.php"
+    "8_create_product_attributes_table.php",
+    "90_create_orders_table.php",
+    "91_create_order_items_table.php",
+    "92_create_order_item_attributes_table.php"
 ]

@@ -1,7 +1,6 @@
 // src/context/CategoryContext.tsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useCategories } from "./CategoryContext";
-import { CategoryType } from "../types/resource";
 
 type RuntimeContextType = {
     activeCategory: string | null;

@@ -1,4 +1,4 @@
-import { RenderAttributeSetProps } from "../Interfaces/AttributeSetProps";
+import { RenderAttributeSetProps } from "../../Interfaces";
 
 export const TextAttributesSet: React.FC<RenderAttributeSetProps> = ({
     isSmall = false,

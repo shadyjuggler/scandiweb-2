@@ -1,6 +1,5 @@
 import { Slider } from "../Framework/Slider";
 import { Slide } from "../Framework/Slide";
-import { AttributeSetType } from "../../types/resource";
 
 import { useParams } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
@@ -8,17 +7,13 @@ import { useModal } from "../../context/ModalContext";
 import { useProductById } from "../../hooks/useProductById";
 import { parseHtmlSafe } from "../../utils/parseHtmlSafe";
 import { useEffect, useState } from "react";
-import { AttributeSet } from "../UI/AttributeSet";
+import { AttributeSet } from "../UI/Attributes/AttributeSet";
 
-interface ProductDetailsInterface {
-    title: string;
-    price: string;
-    attributeSets: AttributeSetType[];
-    gallery: string[];
-    description: string;
-}
+import { Section } from "../Layouts/Section";
 
-export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
+import { formatPrice } from "../../utils/formatPrice";
+
+export const ProductDetials: React.FC = ({}) => {
     const { id } = useParams<{ id: string }>();
 
     if (!id) return <p>Invalid id product id parameter</p>;
@@ -44,8 +39,10 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
     const gelleryUrls = product.gallery.map((galleryItem) => galleryItem.url);
 
     return (
-        <section id="product-details" className="mt-20 py-16">
+        <Section id="product-details">
+
             <div className="flex gap-16">
+
                 {/* Product Gallery */}
                 <div className="basis-2/3 flex relative">
                     <div className="basis-1/5">
@@ -83,6 +80,7 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
                     <div>
                         <p className="text-3xl font-semibold">{product.name}</p>
                     </div>
+                    
                     {product.attributes.map((set, index) => {
                         return (
                             <div key={set.name} className="mt-4">
@@ -110,7 +108,7 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
 
                     <div className="mt-4">
                         <p className="subtitle robotcondensed">price:</p>
-                        <p className="font-bold text-2xl">{`${product.prices[0].currency.symbol}${product.prices[0].amount}`}</p>
+                        <p className="font-bold text-2xl">{formatPrice(product.prices[0].currency.symbol, product.prices[0].amount)}</p>
                     </div>
                     <div className="mt-4">
                         <button
@@ -131,6 +129,6 @@ export const ProductDetials: React.FC<ProductDetailsInterface> = ({}) => {
                     </div>
                 </div>
             </div>
-        </section>
+        </Section>
     );
 };

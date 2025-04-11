@@ -13,11 +13,11 @@ interface SliderProps {
     autoScroll?: boolean;
     interval?: number;
     navigation?: {
-        btnPrev: string,
-        btnNext: string
-    }
+        btnPrev: string;
+        btnNext: string;
+    };
     paginationClassName?: string;
-    paginationGallery?: string[]
+    paginationGallery?: string[];
 }
 
 export const Slider: React.FC<SliderProps> = ({
@@ -27,7 +27,7 @@ export const Slider: React.FC<SliderProps> = ({
     interval = 3000,
     navigation,
     paginationClassName = "",
-    paginationGallery
+    paginationGallery,
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -108,9 +108,7 @@ export const Slider: React.FC<SliderProps> = ({
 
             {/* Pagination */}
             {paginationClassName && (
-                <div
-                    className={`flex gap-2 ${paginationClassName}`}
-                >
+                <div className={`flex gap-2 ${paginationClassName}`}>
                     {Array.from({ length: slidesCount }).map((_, i) => (
                         <button
                             key={i}
@@ -118,7 +116,13 @@ export const Slider: React.FC<SliderProps> = ({
                                 setCurrentIndex(i);
                                 scrollToSlide(i);
                             }}
-                            style={paginationGallery ? {backgroundImage: `url(${paginationGallery[i]})`} : {}}
+                            style={
+                                paginationGallery
+                                    ? {
+                                          backgroundImage: `url(${paginationGallery[i]})`,
+                                      }
+                                    : {}
+                            }
                             className={`pagination-bullet w-3 h-3 rounded-full transition-colors duration-300 z-40 ${
                                 i === currentIndex
                                     ? "bg-red-500"

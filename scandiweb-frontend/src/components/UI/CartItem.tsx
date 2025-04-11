@@ -1,10 +1,12 @@
 import { AttributeSetType } from "../../types/resource";
-import { AttributeSet } from "./AttributeSet";
+import { AttributeSet } from "./Attributes/AttributeSet";
 
 import { useCart } from "../../context/CartContext";
 
+import { Minus, Plus } from "../Svg";
+
 interface CartItemProps {
-    id: string,
+    id: string;
     title: string;
     price: string;
     attributeSets: AttributeSetType[];
@@ -22,7 +24,7 @@ export const CartItem: React.FC<CartItemProps> = ({
     productSelectedAttributes,
     imgUrl,
 }) => {
-    const {increaseQuantity, decreaseQuantity} = useCart();
+    const { increaseQuantity, decreaseQuantity } = useCart();
 
     return (
         <div className="flex gap-4">
@@ -45,9 +47,9 @@ export const CartItem: React.FC<CartItemProps> = ({
                                         <AttributeSet
                                             items={set.items}
                                             type={set.type}
-
                                             isSmall={true} // <= By this, we saing that attribute set will be displayed in Cart
-                                            defaultActiveAttributeIndex={ // <= And here specifying the selected attribute in attibute set
+                                            defaultActiveAttributeIndex={
+                                                // <= And here specifying the selected attribute in attibute set
                                                 productSelectedAttributes[i]
                                             }
                                         />
@@ -59,41 +61,22 @@ export const CartItem: React.FC<CartItemProps> = ({
                 </div>
             </div>
             <div className="w-6 flex flex-col justify-between">
-                <button onClick={() => increaseQuantity(id, productSelectedAttributes)} className="btn-quantity">
-                    <svg
-                        width="10"
-                        height="10"
-                        viewBox="0 0 10 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M5 1V9"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                        <path
-                            d="M1 5H9"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
+                <button
+                    onClick={() =>
+                        increaseQuantity(id, productSelectedAttributes)
+                    }
+                    className="btn-quantity"
+                >
+                    <Plus />
                 </button>
                 <p className="font-medium text-center">{quantity}</p>
-                <button onClick={() => decreaseQuantity(id, productSelectedAttributes)} className="btn-quantity">
-                    <svg
-                        width="10"
-                        height="2"
-                        viewBox="0 0 10 2"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M1 1H9"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
+                <button
+                    onClick={() =>
+                        decreaseQuantity(id, productSelectedAttributes)
+                    }
+                    className="btn-quantity"
+                >
+                    <Minus />
                 </button>
             </div>
             <div>

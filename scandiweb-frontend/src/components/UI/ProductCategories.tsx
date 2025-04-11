@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useCategories } from "../../context/CategoryContext";
-import { useRuntime } from "../../context/RunTimeContext";
+import { useRuntime } from "../../context/RuntimeContext";
 
 
 export const ProductCategories: React.FC = () => {

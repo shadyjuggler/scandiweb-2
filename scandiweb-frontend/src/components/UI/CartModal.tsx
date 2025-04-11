@@ -7,14 +7,18 @@ import { useCart } from "../../context/CartContext";
 import { useModal } from "../../context/ModalContext";
 
 import { pluralize } from "../../utils/plurarize";
+import { formatPrice } from "../../utils/formatPrice";
 
 interface CartModalProps {
     isModalOpen: boolean;
 }
 
 export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
-    const { cartProducts, stats: {totalPrice, productQuantity} } = useCart();
-    const {toggleModalVisibility} = useModal();
+    const {
+        cartProducts,
+        stats: { totalPrice, productQuantity },
+    } = useCart();
+    const { toggleModalVisibility } = useModal();
 
     return (
         <Modal
@@ -24,31 +28,41 @@ export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
             backdropClassName="cartModal-bg"
         >
             <p className="font-bold">
-                My Bag, <span className="font-medium">{`${pluralize(productQuantity, 'item')}`}</span>
+                My Bag,{" "}
+                <span className="font-medium">{`${pluralize(
+                    productQuantity,
+                    "item"
+                )}`}</span>
             </p>
 
             <div className="mt-8 px-1 flex flex-col gap-8 max-h-90 overflow-y-scroll scrollbar">
-
                 {/* Map Cart Products */}
 
-                {
-                    cartProducts.length === 0 && <p className="py-8 font-semibold text-center">Cart is empty</p>
-                }
+                {cartProducts.length === 0 && (
+                    <p className="py-8 font-semibold text-center">
+                        Cart is empty
+                    </p>
+                )}
 
                 {cartProducts.map(
                     ({
                         product: { id, name, attributes, prices, gallery },
                         quantity,
-                        productSelectedAttributes
+                        productSelectedAttributes,
                     }) => {
                         return (
                             <CartItem
                                 id={id}
                                 title={name}
-                                price={`${prices[0].currency.symbol}${prices[0].amount}`}
+                                price={formatPrice(
+                                    prices[0].currency.symbol,
+                                    prices[0].amount
+                                )}
                                 attributeSets={attributes}
                                 quantity={quantity}
-                                productSelectedAttributes={productSelectedAttributes}
+                                productSelectedAttributes={
+                                    productSelectedAttributes
+                                }
                                 imgUrl={gallery[0].url} // First image url from gallery
                             />
                         );
@@ -62,7 +76,7 @@ export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
             </div>
 
             <div className="mt-8">
-                <button className="btn btn-primary py-2">place order</button>
+                <button disabled={cartProducts.length === 0} className="btn btn-primary py-2">place order</button>
             </div>
         </Modal>
     );

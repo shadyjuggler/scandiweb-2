@@ -3,9 +3,9 @@ import { ProductProvider } from "./ProductContext";
 import { CategoryProvider } from "./CategoryContext";
 import { CartProvider } from "./CartContext";
 import { ModalProvider } from "./ModalContext";
-import { RuntimeProvider } from "./RunTimeContext";
+import { RuntimeProvider } from "./RuntimeContext";
 
-// General Provider component to combine all resource contexts, just thinking about future ;)
+// General Provider component to combine all resource contexts
 
 export const AppDataProvider: React.FC<{ children: React.ReactNode }> = ({
     children,

@@ -2,20 +2,12 @@ import { ProductCard } from "../UI/ProductCard";
 import { useProducts } from "../../context/ProductContext";
 import { ucfirst } from "../../utils/ucfirst";
 import { Link } from "react-router-dom";
-import { useRuntime } from "../../context/RunTimeContext";
+import { useRuntime } from "../../context/RuntimeContext";
 
-interface ProductListProps {
-    category: string;
-    products?: {
-        id: string;
-        title: string;
-        price: string;
-        imgPath: string;
-        inStock: boolean;
-    };
-}
+import { Section } from "../Layouts/Section";
+import { Listing } from "../Layouts/Listing";
 
-export const ProductList: React.FC<ProductListProps> = () => {
+export const ProductList: React.FC = () => {
     const { products, isLoading, error } = useProducts();
 
     const { activeCategory } = useRuntime();
@@ -34,21 +26,25 @@ export const ProductList: React.FC<ProductListProps> = () => {
         return product.category.name === activeCategory;
     });
 
+
     return (
-        <section id="product-list" className="mt-20 py-16">
-            <div>
+        <Section id="product-list">
+
+            <div className="mt-4">
                 <h1 className="text-4xl">{ucfirst(activeCategory)}</h1>
             </div>
 
-            <div className="mt-16 flex justify-center flex-wrap gap-x-8 gap-y-8">
-                {filteredProducts.map((product, i: number) => {
-                    return (
-                        <Link key={product.id} to={`product/${product.id}`}>
-                            <ProductCard product={product} key={i} />
-                        </Link>
-                    );
-                })}
+            <div className="mt-16">
+                <Listing>
+                    {filteredProducts.map((product, i: number) => {
+                        return (
+                            <Link key={product.id} to={`product/${product.id}`}>
+                                <ProductCard product={product} key={i} />
+                            </Link>
+                        );
+                    })}
+                </Listing>
             </div>
-        </section>
+        </Section>
     );
 };

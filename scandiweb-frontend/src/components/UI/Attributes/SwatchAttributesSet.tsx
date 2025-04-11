@@ -1,5 +1,4 @@
-import {  AttributeType } from "../../types/resource";
-import { RenderAttributeSetProps } from "../Interfaces/AttributeSetProps";
+import { RenderAttributeSetProps } from "../../Interfaces";
 
 export const SwatchAttributesSet: React.FC<RenderAttributeSetProps> = ({
     isSmall = false,

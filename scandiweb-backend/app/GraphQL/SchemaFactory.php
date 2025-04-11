@@ -5,7 +5,7 @@ namespace App\GraphQL;
 use GraphQL\Type\Schema;
 
 use App\GraphQL\QueryType;
-use App\Types\MutationType;
+use App\GraphQL\MutationType;
 
 /**
  * Class SchemaFactory
@@ -22,7 +22,7 @@ class SchemaFactory
     {
         return new Schema([
             'query' => new QueryType(),
-            // add mutation
+            'mutation' => new MutationType()
         ]);
     }
 }

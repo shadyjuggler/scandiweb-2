@@ -2,6 +2,7 @@
 
 namespace App\GraphQL;
 
+use App\GraphQL\Types\InputTypes\OrderProductInputType;
 use App\GraphQL\Types\AttributeItemType;
 use App\GraphQL\Types\AttributeType;
 use App\GraphQL\Types\ProductType;
@@ -81,5 +82,15 @@ class TypeRegistry
     public static function attributeItem(): AttributeItemType
     {
         return self::$instances['AttributeItem'] ??= new AttributeItemType();
+    }
+
+    /**
+     * Get the singleton instance of AttributeItemType.
+     *
+     * @return OrderProductInputType
+     */
+    public static function orderProductInput(): OrderProductInputType
+    {
+        return self::$instances['OrderProductInputType'] ??= new OrderProductInputType();
     }
 }
