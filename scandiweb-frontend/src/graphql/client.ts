@@ -1,4 +1,4 @@
-const GRAPHQL_ENDPOINT = "http://localhost:8000/graphql";
+const GRAPHQL_ENDPOINT = import.meta.env.VITE_API_URL;
 
 /**
  * GraphQL fetcher.
