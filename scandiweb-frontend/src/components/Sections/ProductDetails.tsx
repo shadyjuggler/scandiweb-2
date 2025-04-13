@@ -12,6 +12,7 @@ import { AttributeSet } from "../UI/Attributes/AttributeSet";
 import { Section } from "../Layouts/Section";
 
 import { formatPrice } from "../../utils/formatPrice";
+import { useRuntime } from "../../context/RuntimeContext";
 
 export const ProductDetials: React.FC = ({}) => {
     const { id } = useParams<{ id: string }>();
@@ -22,14 +23,14 @@ export const ProductDetials: React.FC = ({}) => {
 
     const { addToCart } = useCart();
     const { toggleModalVisibility } = useModal();
+    const { selectedAttributeItems, setDefaultSelectedAttributeItems } =
+        useRuntime();
 
-    // Array where each index is attribute set from all product sets, each value is index of attribute within set (complex)
-    const [productSelectedAttributes, setProductSelectedAttributes] = useState<
-        number[]
-    >([]);
-
+    // When product loaded, set as selected attribute_items all attribute_items id's of first values in all attribute sets
     useEffect(() => {
-        setProductSelectedAttributes(Array(product?.attributes.length).fill(0));
+        if (!product) return;
+
+        setDefaultSelectedAttributeItems(product);
     }, [product]);
 
     if (isLoading) return <p>Loading...</p>;
@@ -40,9 +41,7 @@ export const ProductDetials: React.FC = ({}) => {
 
     return (
         <Section id="product-details">
-
             <div className="flex gap-16">
-
                 {/* Product Gallery */}
                 <div className="basis-2/3 flex relative">
                     <div className="basis-1/5">
@@ -80,25 +79,22 @@ export const ProductDetials: React.FC = ({}) => {
                     <div>
                         <p className="text-3xl font-semibold">{product.name}</p>
                     </div>
-                    
-                    {product.attributes.map((set, index) => {
+
+                    {product.attributes.map((set) => {
                         return (
                             <div key={set.name} className="mt-4">
-                                <p className="subtitle robotcondensed">size:</p>
+                                <p className="subtitle robotcondensed">{`${set.name}:`}</p>
                                 <div className="mt-2">
                                     {!set.type ? (
                                         <p>Attribute set type not provided</p>
                                     ) : (
                                         <AttributeSet
+                                            attribute_id={set.attribute_id}
+                                            key={set.attribute_id}
                                             type={set.type}
                                             items={set.items}
-                                            onSelect={
-                                                setProductSelectedAttributes
-                                            }
-                                            orderIndex={index}
-                                            productSelectedAttributes={
-                                                productSelectedAttributes
-                                            }
+                                            selectedAttributeItems={selectedAttributeItems}
+                                            isSmall={false}
                                         />
                                     )}
                                 </div>
@@ -108,13 +104,18 @@ export const ProductDetials: React.FC = ({}) => {
 
                     <div className="mt-4">
                         <p className="subtitle robotcondensed">price:</p>
-                        <p className="font-bold text-2xl">{formatPrice(product.prices[0].currency.symbol, product.prices[0].amount)}</p>
+                        <p className="font-bold text-2xl">
+                            {formatPrice(
+                                product.prices[0].currency.symbol,
+                                product.prices[0].amount
+                            )}
+                        </p>
                     </div>
                     <div className="mt-4">
                         <button
                             disabled={!product.inStock}
                             onClick={() => {
-                                addToCart(product, productSelectedAttributes);
+                                addToCart(product, selectedAttributeItems);
                                 toggleModalVisibility(true);
                             }}
                             className="btn btn-primary py-2.5"

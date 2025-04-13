@@ -1,23 +1,27 @@
 import { RenderAttributeSetProps } from "../../Interfaces";
 
 export const TextAttributesSet: React.FC<RenderAttributeSetProps> = ({
+    attribute_id,
     isSmall = false,
     items,
+    selectedAttributeItems,
     onClick,
-    active,
 }) => {
+
     return (
         <div className={`${isSmall && "small"} flex gap-3`}>
-            {items?.map((attribute, i) => {
+            {items?.map((attributeItem) => {
                 return (
                     <span
-                        key={attribute.id}
-                        onClick={() => onClick(i)}
+                        key={attributeItem.attribute_item_id}
+                        onClick={() => onClick(attributeItem.attribute_item_id)}
                         className={`attribute-text ${
-                            active === i && "attribute-text_active"
+                            selectedAttributeItems[attribute_id ?? 0] ===
+                                attributeItem.attribute_item_id &&
+                            "attribute-text_active"
                         }`}
                     >
-                        <p className="sourcesanspro">{attribute.value}</p>
+                        <p className="sourcesanspro">{attributeItem.value}</p>
                     </span>
                 );
             })}

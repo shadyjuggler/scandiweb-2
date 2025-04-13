@@ -14,7 +14,7 @@ class ProductAttributeItemsField
             'type' => Type::listOf(TypeRegistry::attributeItem()),
             'resolve' => function ($attribute) {
                 return (new ProductAttribute)
-                    ->select(["display_value", "value"])
+                    ->select(["attribute_items.id as attribute_item_id", "display_value", "value"])
                     ->join("attribute_items", "attribute_item_id", "id")
                     ->where("product_attributes.product_id", "=", $attribute['product_id'])
                     ->where("product_attributes.attribute_id", "=", $attribute['attribute_id'])

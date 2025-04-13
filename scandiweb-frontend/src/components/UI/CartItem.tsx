@@ -4,13 +4,14 @@ import { AttributeSet } from "./Attributes/AttributeSet";
 import { useCart } from "../../context/CartContext";
 
 import { Minus, Plus } from "../Svg";
+import { useRuntime } from "../../context/RuntimeContext";
 
 interface CartItemProps {
     id: string;
     title: string;
     price: string;
     attributeSets: AttributeSetType[];
-    productSelectedAttributes: number[];
+    selectedAttributeItems: Record<number, number>
     quantity: number;
     imgUrl: string;
 }
@@ -21,7 +22,7 @@ export const CartItem: React.FC<CartItemProps> = ({
     price,
     quantity,
     attributeSets,
-    productSelectedAttributes,
+    selectedAttributeItems,
     imgUrl,
 }) => {
     const { increaseQuantity, decreaseQuantity } = useCart();
@@ -32,9 +33,9 @@ export const CartItem: React.FC<CartItemProps> = ({
                 <p className="font-light">{title}</p>
                 <p className="mt-2 font-medium">{price}</p>
                 <div className="flex flex-col gap-1 pointer-events-none">
-                    {attributeSets.map((set, i) => {
+                    {attributeSets.map((set) => {
                         return (
-                            <div className="mt-1">
+                            <div key={set.name} className="mt-1">
                                 <p className="text-sm">
                                     {set.name ?? "unknown"}
                                 </p>
@@ -45,13 +46,11 @@ export const CartItem: React.FC<CartItemProps> = ({
                                         </p>
                                     ) : (
                                         <AttributeSet
+                                            attribute_id={set.attribute_id}
                                             items={set.items}
+                                            selectedAttributeItems={selectedAttributeItems}
                                             type={set.type}
                                             isSmall={true} // <= By this, we saing that attribute set will be displayed in Cart
-                                            defaultActiveAttributeIndex={
-                                                // <= And here specifying the selected attribute in attibute set
-                                                productSelectedAttributes[i]
-                                            }
                                         />
                                     )}
                                 </div>
@@ -62,18 +61,14 @@ export const CartItem: React.FC<CartItemProps> = ({
             </div>
             <div className="w-6 flex flex-col justify-between">
                 <button
-                    onClick={() =>
-                        increaseQuantity(id, productSelectedAttributes)
-                    }
+                    onClick={() => increaseQuantity(id, selectedAttributeItems)}
                     className="btn-quantity"
                 >
                     <Plus />
                 </button>
                 <p className="font-medium text-center">{quantity}</p>
                 <button
-                    onClick={() =>
-                        decreaseQuantity(id, productSelectedAttributes)
-                    }
+                    onClick={() => decreaseQuantity(id, selectedAttributeItems)}
                     className="btn-quantity"
                 >
                     <Minus />

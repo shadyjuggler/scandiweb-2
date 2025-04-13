@@ -1,16 +1,13 @@
 import { AttributeSetType } from "../../types/resource";
 
 export type AttributeSetProps = Partial<AttributeSetType> & {
-    defaultActiveAttributeIndex?: number;
-    isSmall?: boolean;
+    isSmall: boolean;
     onSelect?: (selectedIndexesArr: number[]) => void;
-    productSelectedAttributes?: number[];
-    orderIndex?: number;
-    type?: "swatch" | "text";
+    selectedAttributeItems: Record<number, number>
 };
 
 export type RenderAttributeSetProps = Partial<AttributeSetType> & {
-    active: number;
     isSmall: boolean;
     onClick: (index: number) => void;
+    selectedAttributeItems: Record<number, number>
 };

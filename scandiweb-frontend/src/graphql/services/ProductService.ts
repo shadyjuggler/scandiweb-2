@@ -13,9 +13,11 @@ export class ProductService {
                     name
                     inStock
                     attributes {
+                        attribute_id
                         name
                         type
                         items {
+                            attribute_item_id
                             display_value
                             value
                         }
@@ -46,6 +48,8 @@ export class ProductService {
         }>(query);
     }
 
+    // 'getProductById' not used in current version
+    //  left as example of service function with variable
     static async getProductById(id: string) {
         const query = `
         query Product($id: String!) {
@@ -55,30 +59,9 @@ export class ProductService {
                 description
                 name
                 inStock
-                attributes {
-                    name
-                    type
-                    items {
-                        display_value
-                        value
-                    }
-                }
                 category {
                     id
                     name
-                }
-                gallery {
-                    id
-                    url
-                    position
-                }
-                prices {
-                    id
-                    amount
-                    currency {
-                        symbol
-                        label
-                    }
                 }
             }
         }

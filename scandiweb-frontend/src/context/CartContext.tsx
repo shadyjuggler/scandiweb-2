@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { useState } from "react";
 
-import { arraysEqual } from "../utils/arraysEqual";
+import { entitiesEqual } from "../utils/entitiesEqual";
 
-import * as types from "../types/cartContext";
+import * as types from "../types/context/cartContext";
 
 type CartContextType = {
     cartProducts: types.CartProduct[];
@@ -15,6 +15,7 @@ type CartContextType = {
     increaseQuantity: types.ModifyCartQuantity;
     decreaseQuantity: types.ModifyCartQuantity;
     removeFromCart: types.RemoveFromCart;
+    clearCart: () => void
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -24,24 +25,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
     const [cartProducts, setCartProducts] = useState<types.CartProduct[]>([]);
 
-    const addToCart: types.AddToCart = (product, productSelectedAttributes) => {
+    const addToCart: types.AddToCart = (product, selectedAttributeItems) => {
         setCartProducts((prev) => {
             // Look for product dublicates with same attributes, save refference of CartProduct object to variable 'existing'
             const existing = prev.find(
                 (p) =>
                     p.product.id === product.id && // Fall back if id's not same
-                    arraysEqual(
-                        p.productSelectedAttributes,
-                        productSelectedAttributes
-                    ) // Check attributes if id's are equal
+                    entitiesEqual(
+                        p.selectedAttributeItems,
+                        selectedAttributeItems
+                    )
             );
-
-            for (const product of prev) {
-                console.log(
-                    product.productSelectedAttributes,
-                    productSelectedAttributes
-                );
-            }
 
             if (existing) {
                 // Increase quantity if same product with same attributes
@@ -54,23 +48,23 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
             return [
                 ...prev,
-                { product, quantity: 1, productSelectedAttributes },
+                { product, quantity: 1, selectedAttributeItems },
             ];
         });
     };
 
     const removeFromCart: types.RemoveFromCart = (
         productId,
-        productSelectedAttributes
+        selectedAttributeItems
     ) => {
         setCartProducts((prev) =>
             prev.filter(
                 (p) =>
                     !(
                         p.product.id === productId &&
-                        arraysEqual(
-                            p.productSelectedAttributes,
-                            productSelectedAttributes
+                        entitiesEqual(
+                            p.selectedAttributeItems,
+                            selectedAttributeItems
                         )
                     )
             )
@@ -79,14 +73,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const increaseQuantity: types.ModifyCartQuantity = (
         productId,
-        productSelectedAttributes
+        selectedAttributeItems
     ) => {
         setCartProducts((prev) =>
             prev.map((p) =>
                 p.product.id === productId &&
-                arraysEqual(
-                    p.productSelectedAttributes,
-                    productSelectedAttributes
+                entitiesEqual(
+                    p.selectedAttributeItems,
+                    selectedAttributeItems
                 )
                     ? { ...p, quantity: p.quantity + 1 }
                     : p
@@ -96,15 +90,15 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const decreaseQuantity: types.ModifyCartQuantity = (
         productId,
-        productSelectedAttributes
+        selectedAttributeItems
     ) => {
         setCartProducts((prev) =>
             prev.flatMap((p) => {
                 if (
                     p.product.id === productId &&
-                    arraysEqual(
-                        p.productSelectedAttributes,
-                        productSelectedAttributes
+                    entitiesEqual(
+                        p.selectedAttributeItems,
+                        selectedAttributeItems
                     )
                 ) {
                     if (p.quantity > 1) {
@@ -117,6 +111,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
             })
         );
     };
+
+    const clearCart = () => setCartProducts([]);
 
     const stats = useMemo(() => {
         const totalPrice = cartProducts.reduce((a, cartProduct) => {
@@ -140,6 +136,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
                 removeFromCart,
                 increaseQuantity,
                 decreaseQuantity,
+                clearCart
             }}
         >
             {children}

@@ -1,13 +1,13 @@
-import { ProductType } from "./resource";
+import { ProductType } from "../resource";
 
 export type ModifyCartQuantity = (
   productId: string,
-  productSelectedAttributes: number[]
+  selectedAttributeItems: Record<number, number>
 ) => void;
 
 export type AddToCart = (
   product: ProductType,
-  productSelectedAttributes: number[]
+  selectedAttributeItems: Record<number, number>
 ) => void;
 
 export type RemoveFromCart = ModifyCartQuantity;
@@ -15,5 +15,5 @@ export type RemoveFromCart = ModifyCartQuantity;
 export type CartProduct = {
     product: ProductType,
     quantity: number,
-    productSelectedAttributes: number[]
+    selectedAttributeItems: Record<number, number>
 }

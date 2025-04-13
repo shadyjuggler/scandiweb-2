@@ -1,22 +1,26 @@
 import { RenderAttributeSetProps } from "../../Interfaces";
 
 export const SwatchAttributesSet: React.FC<RenderAttributeSetProps> = ({
+    attribute_id,
     isSmall = false,
     items,
+    selectedAttributeItems,
     onClick,
-    active
 }) => {
+
     return (
         <div className={`${isSmall && "small"} flex gap-2`}>
-            {items?.map((attribute, index) => {
+            {items?.map((attributeItem) => {
                 return (
                     <span
-                        key={attribute.id}
-                        onClick={() => onClick(index)}
+                        key={attributeItem.attribute_item_id}
+                        onClick={() => onClick(attributeItem.attribute_item_id)}
                         className={`attribute-swatch ${
-                            active === index && "attribute-swatch_active"
+                            selectedAttributeItems[attribute_id ?? 0] ===
+                                attributeItem.attribute_item_id &&
+                            "attribute-swatch_active"
                         }`}
-                        style={{ backgroundColor: `${attribute.value}` }}
+                        style={{ backgroundColor: `${attributeItem.value}` }}
                     ></span>
                 );
             })}

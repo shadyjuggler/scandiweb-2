@@ -13,6 +13,7 @@ class AttributeType extends ObjectType
         parent::__construct([
             'name' => 'Attribute',
             'fields' => fn() => [
+                'attribute_id' => Type::int(),
                 'name' => Type::string(),
                 'type' => Type::string(),
                 'items' => ProductAttributeItemsField::config()

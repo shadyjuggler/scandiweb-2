@@ -6,7 +6,8 @@ return new class {
             id INT AUTO_INCREMENT PRIMARY KEY,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             currency VARCHAR(10),
-            total_amount DECIMAL(10, 2)
+            total_amount DECIMAL(10, 2),
+            FOREIGN KEY (currency) REFERENCES currencies(label)
         )");
     }
 };

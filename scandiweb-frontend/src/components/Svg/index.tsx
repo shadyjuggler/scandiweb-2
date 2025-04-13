@@ -9,7 +9,7 @@ export const Minus = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
         >
-            <path d="M1 1H9" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M1 1H9" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 };
@@ -23,8 +23,8 @@ export const Plus = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
         >
-            <path d="M5 1V9" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M1 5H9" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M5 1V9" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M1 5H9" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 };

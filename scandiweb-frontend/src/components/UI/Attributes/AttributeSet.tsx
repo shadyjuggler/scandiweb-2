@@ -1,31 +1,22 @@
-import { useState } from "react";
 import { AttributeSetProps } from "../../Interfaces";
 import { TextAttributesSet } from "./TextAttributesSet";
 import { SwatchAttributesSet } from "./SwatchAttributesSet";
 
+import { useRuntime } from "../../../context/RuntimeContext";
+
 export const AttributeSet: React.FC<AttributeSetProps> = ({
-    defaultActiveAttributeIndex = 0,
+    attribute_id,
     isSmall = false,
     items,
-    productSelectedAttributes,
-    onSelect,
-    orderIndex,
+    selectedAttributeItems,
     type,
 }) => {
-    const [activeAttributeIndex, setActiveAttributeIndex] = useState<number>(defaultActiveAttributeIndex);
+    const { updateSelectedAttributeItems } =
+        useRuntime();
 
-    const onClick = (index: number) => {
-        setActiveAttributeIndex(index);
-
-        if (
-            onSelect &&
-            productSelectedAttributes &&
-            typeof orderIndex !== "undefined"
-        ) {
-            const updated = [...productSelectedAttributes];
-            updated[orderIndex] = index;
-            onSelect(updated);
-        }
+    const onClick = (attribute_item_id: number) => {
+        if (!attribute_id) return;
+        updateSelectedAttributeItems(attribute_id, attribute_item_id);
     };
 
     if (!type) {
@@ -37,17 +28,27 @@ export const AttributeSet: React.FC<AttributeSetProps> = ({
     }
 
     const renderProps = {
-        active: activeAttributeIndex,
         items,
         onClick,
         isSmall,
+        selectedAttributeItems
     };
 
     switch (type) {
         case "text":
-            return <TextAttributesSet {...renderProps} />;
+            return (
+                <TextAttributesSet
+                    attribute_id={attribute_id}
+                    {...renderProps}
+                />
+            );
         case "swatch":
-            return <SwatchAttributesSet {...renderProps} />;
+            return (
+                <SwatchAttributesSet
+                    attribute_id={attribute_id}
+                    {...renderProps}
+                />
+            );
         default:
             return (
                 <p className="text-semibold">

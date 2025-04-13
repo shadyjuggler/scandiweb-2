@@ -26,10 +26,8 @@ export const ProductList: React.FC = () => {
         return product.category.name === activeCategory;
     });
 
-
     return (
         <Section id="product-list">
-
             <div className="mt-4">
                 <h1 className="text-4xl">{ucfirst(activeCategory)}</h1>
             </div>
@@ -37,11 +35,7 @@ export const ProductList: React.FC = () => {
             <div className="mt-16">
                 <Listing>
                     {filteredProducts.map((product, i: number) => {
-                        return (
-                            <Link key={product.id} to={`product/${product.id}`}>
-                                <ProductCard product={product} key={i} />
-                            </Link>
-                        );
+                        return <ProductCard product={product} key={i} />;
                     })}
                 </Listing>
             </div>

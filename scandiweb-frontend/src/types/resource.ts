@@ -1,52 +1,59 @@
 // All field non-undefined, because initially all field planned to be fetched
 
 export type AttributeType = {
-    displayValue: string,
-    value: string,
-    id: number | string,
+    attribute_item_id: number;
+    displayValue: string;
+    value: string;
 };
 
 export type AttributeSetType = {
-    items: AttributeType[],
-    name: string,
-    type: "text" | "swatch"
+    attribute_id: number;
+    items: AttributeType[];
+    name: string;
+    type: "text" | "swatch";
 };
 
 export type CategoryType = {
-    id: number,
-    name: string
+    id: number;
+    name: string;
 };
 
 export type ImageType = {
-    id: number,
-    url: string,
-    postion: number
+    id: number;
+    url: string;
+    postion: number;
 };
 
 export type CurrencyType = {
-    symbol: string,
-    label: string
+    symbol: string;
+    label: string;
 };
 
 export type PriceType = {
-    amount: number,
-    currency: CurrencyType
+    amount: number;
+    currency: CurrencyType;
 };
 
 export type ProductType = {
-    id: string,
-    name: string,
-    brand: string,
-    inStock: boolean,
-    description: string,
-    category: CategoryType
-    attributes: AttributeSetType[]
-    gallery: ImageType[]
-    prices: PriceType[]
+    id: string;
+    name: string;
+    brand: string;
+    inStock: boolean;
+    description: string;
+    category: CategoryType;
+    attributes: AttributeSetType[];
+    gallery: ImageType[];
+    prices: PriceType[];
 };
 
-export type CartProduct = {
-    product: ProductType,
-    quantity: number,
-    productSelectedAttributes: number[]
-}
+export type OrderProductInput = {
+    product_id: string;
+    quantity: number;
+    selected_attribute_item_ids: number[];
+};
+
+export type OrderType = {
+    currency: string;
+    total: number;
+    products: OrderProductInput[];
+};

@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "../Framework/Modal";
 
 import { CartItem } from "./CartItem";
+import { MakeOrderBtn } from "./MakeOrderBtn";
 
 import { useCart } from "../../context/CartContext";
 import { useModal } from "../../context/ModalContext";
@@ -48,21 +49,20 @@ export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
                     ({
                         product: { id, name, attributes, prices, gallery },
                         quantity,
-                        productSelectedAttributes,
+                        selectedAttributeItems,
                     }) => {
                         return (
                             <CartItem
                                 id={id}
+                                key={id + " " + JSON.stringify(selectedAttributeItems)}
                                 title={name}
                                 price={formatPrice(
                                     prices[0].currency.symbol,
                                     prices[0].amount
                                 )}
                                 attributeSets={attributes}
+                                selectedAttributeItems={selectedAttributeItems}
                                 quantity={quantity}
-                                productSelectedAttributes={
-                                    productSelectedAttributes
-                                }
                                 imgUrl={gallery[0].url} // First image url from gallery
                             />
                         );
@@ -76,7 +76,7 @@ export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
             </div>
 
             <div className="mt-8">
-                <button disabled={cartProducts.length === 0} className="btn btn-primary py-2">place order</button>
+                <MakeOrderBtn text="place order"/>
             </div>
         </Modal>
     );
