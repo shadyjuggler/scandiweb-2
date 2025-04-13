@@ -6,7 +6,7 @@ import { useCart } from "../../context/CartContext";
 import { useModal } from "../../context/ModalContext";
 import { useProductById } from "../../hooks/useProductById";
 import { parseHtmlSafe } from "../../utils/parseHtmlSafe";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { AttributeSet } from "../UI/AttributeSet";
 
 import { Section } from "../Layouts/Section";
@@ -14,19 +14,17 @@ import { Section } from "../Layouts/Section";
 import { formatPrice } from "../../utils/formatPrice";
 import { useRuntime } from "../../context/RuntimeContext";
 
-
 /**
  * ProductDetails Component
- * 
+ *
  * Stands to show all product related details
- * 
+ *
  * - Get product data by ID from URL params
  * - Use context to manage cart, modal visibility, and runtime attribute state
  * - Disable 'add-to-cart' button until all attributes are selected
  * - Safely render product description with HTML tags
  */
 export const ProductDetials: React.FC = ({}) => {
-
     // Get :id product parameter
     const { id } = useParams<{ id: string }>();
     if (!id) return <p>Invalid id product id parameter</p>;
@@ -34,7 +32,8 @@ export const ProductDetials: React.FC = ({}) => {
     const { product, isLoading, error } = useProductById(id);
     const { addToCart } = useCart();
     const { toggleModalVisibility } = useModal();
-    const { selectedAttributeItems, setDefaultSelectedAttributeItems } = useRuntime();
+    const { selectedAttributeItems, setDefaultSelectedAttributeItems } =
+        useRuntime();
 
     /**
      * When product is loaded:
@@ -65,6 +64,7 @@ export const ProductDetials: React.FC = ({}) => {
                     <div className="basis-4/5">
                         <Slider
                             id="pd-slider"
+                            data-testid="product-gallery"
                             autoScroll={false}
                             paginationClassName="pd-sliderPagination"
                             paginationGallery={gelleryUrls}
@@ -105,6 +105,7 @@ export const ProductDetials: React.FC = ({}) => {
                                     ) : (
                                         <AttributeSet
                                             attribute_id={set.attribute_id}
+                                            name={set.name}
                                             key={set.attribute_id}
                                             type={set.type}
                                             items={set.items}
@@ -130,6 +131,8 @@ export const ProductDetials: React.FC = ({}) => {
                     </div>
                     <div className="mt-4">
                         <button
+                            className="btn btn-primary py-2.5"
+                            data-testid="add-to-cart"
                             disabled={
                                 !product.inStock ||
                                 Object.values(selectedAttributeItems).some(
@@ -140,13 +143,15 @@ export const ProductDetials: React.FC = ({}) => {
                                 addToCart(product, selectedAttributeItems);
                                 toggleModalVisibility(true);
                             }}
-                            className="btn btn-primary py-2.5"
                         >
                             add to cart
                         </button>
                     </div>
                     <div className="mt-6">
-                        <div className="roboto">
+                        <div
+                            className="roboto"
+                            data-testid="product-description"
+                        >
                             {parseHtmlSafe(product.description)}
                         </div>
                     </div>

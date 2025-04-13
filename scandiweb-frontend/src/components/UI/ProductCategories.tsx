@@ -23,13 +23,18 @@ export const ProductCategories: React.FC = () => {
                     <Link
                         to={"/"}
                         key={category.name}
+                        data-testid={`category-link ${
+                            activeTab === i && "active-category-link"
+                        }`}
+                        className={`nav-link ${
+                            activeTab === i && "nav-link_active"
+                        }`}
                         onClick={() => {
                             setActiveCategory(category.name);
                             setActiveTab(i);
                         }}
-                        className={`nav-link ${
-                            activeTab === i && "nav-link_active"
-                        }`}
+                        
+
                     >
                         {category.name}
                     </Link>

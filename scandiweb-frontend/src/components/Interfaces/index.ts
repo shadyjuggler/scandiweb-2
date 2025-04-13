@@ -2,6 +2,7 @@ import { AttributeSetType } from "../../types/resource";
 
 export type AttributeSetProps = Partial<AttributeSetType> & {
     isSmall: boolean;
+    name: string;
     onSelect?: (selectedIndexesArr: number[]) => void;
     selectedAttributeItems: Record<number, number>
 };

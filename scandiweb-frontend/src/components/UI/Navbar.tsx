@@ -34,6 +34,7 @@ export const Navbar: React.FC = () => {
                     <button
                         onClick={() => toggleModalVisibility(!isModalOpen)}
                         className="w-10 h-10 flex items-center justify-center cursor-pointer"
+                        data-testid='cart-btn'
                     >
                         <img src={cart} alt="cart" />
                     </button>

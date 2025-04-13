@@ -4,6 +4,7 @@ import { useRuntime } from "../../context/RuntimeContext";
 
 export const AttributeSet: React.FC<AttributeSetProps> = ({
     attribute_id,
+    name,
     isSmall = false,
     items,
     selectedAttributeItems,
@@ -26,6 +27,7 @@ export const AttributeSet: React.FC<AttributeSetProps> = ({
 
     return (
         <div
+            data-testid={`cart-item-attribute-${name}`}
             className={`${isSmall && "small"} ${
                 type === "swatch" ? "swatch" : type === "text" ? "text" : ""
             }`}
@@ -40,6 +42,12 @@ export const AttributeSet: React.FC<AttributeSetProps> = ({
                                 attributeItem.attribute_item_id &&
                             `attribute-${type}_active`
                         }`}
+                        data-testid={
+                            selectedAttributeItems[attribute_id ?? 0] ===
+                            attributeItem.attribute_item_id
+                                ? `cart-item-attribute-${name}-${attributeItem.value}`
+                                : `cart-item-attribute-${name}-${attributeItem.displayValue}-selected`
+                        }
                         style={
                             type === "swatch"
                                 ? { backgroundColor: `${attributeItem.value}` }

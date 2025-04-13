@@ -9,7 +9,7 @@ export const ProductCard: React.FC<{ product: ProductType }> = ({
     const { gallery, name, prices, inStock } = product;
 
     return (
-        <div className="productCard relative">
+        <div data-testid={`product-${product.id}`} className="productCard relative">
             <Link
                 className="absolute w-full h-full top-0 left-0 z-20"
                 key={product.id}

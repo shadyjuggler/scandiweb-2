@@ -34,8 +34,11 @@ export const CartItem: React.FC<CartItemProps> = ({
                                     ) : (
                                         <AttributeSet
                                             attribute_id={set.attribute_id}
+                                            name={set.name}
                                             items={set.items}
-                                            selectedAttributeItems={selectedAttributeItems}
+                                            selectedAttributeItems={
+                                                selectedAttributeItems
+                                            }
                                             type={set.type}
                                             isSmall={true} // <= By this, we saing that attribute set will be displayed in Cart
                                         />
@@ -48,13 +51,20 @@ export const CartItem: React.FC<CartItemProps> = ({
             </div>
             <div className="w-6 flex flex-col justify-between">
                 <button
+                    data-testid="cart-item-amount-increase"
                     onClick={() => increaseQuantity(id, selectedAttributeItems)}
                     className="btn-quantity"
                 >
                     <Plus />
                 </button>
-                <p className="font-medium text-center">{quantity}</p>
+                <p
+                    data-testid="cart-item-amount"
+                    className="font-medium text-center"
+                >
+                    {quantity}
+                </p>
                 <button
+                    data-testid="cart-item-amount-decrease"
                     onClick={() => decreaseQuantity(id, selectedAttributeItems)}
                     className="btn-quantity"
                 >

@@ -72,7 +72,10 @@ export const CartModal: React.FC<{ isModalOpen: boolean }> = ({
 
             <div className="mt-8 flex justify-between">
                 <p className="text-lg font-medium roboto">Total</p>
-                <p className="subtitle">{`$${totalPrice}`}</p>
+                <p
+                    data-testid="cart-total"
+                    className="subtitle"
+                >{`$${totalPrice}`}</p>
             </div>
 
             <div className="mt-8">
