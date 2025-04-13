@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { entitiesEqual } from "../utils/entitiesEqual";
 
-import * as types from "../types/context/cartContext";
+import * as types from "../types/context/cart";
 
 type CartContextType = {
     cartProducts: types.CartProduct[];

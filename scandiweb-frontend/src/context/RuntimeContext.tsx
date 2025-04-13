@@ -3,7 +3,7 @@ import { useCategories } from "./CategoryContext";
 
 import { productToAttributeRecords } from "../utils/productToAttributeRecords";
 
-import * as types from "../types/context/runtimeContext";
+import * as types from "../types/context/runtime";
 
 type RuntimeContextType = {
     activeCategory: string | null;
