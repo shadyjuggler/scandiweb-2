@@ -3,16 +3,18 @@ import { ProductType } from "../../types/resource";
 
 import { QuickShop } from "./QuickShop";
 
-interface CardProps {
-    product: ProductType;
-}
-export const ProductCard: React.FC<CardProps> = ({ product }) => {
-
+export const ProductCard: React.FC<{ product: ProductType }> = ({
+    product,
+}) => {
     const { gallery, name, prices, inStock } = product;
 
     return (
         <div className="productCard relative">
-            <Link className="absolute w-full h-full top-0 left-0 z-20" key={product.id} to={`product/${product.id}`}></Link>
+            <Link
+                className="absolute w-full h-full top-0 left-0 z-20"
+                key={product.id}
+                to={`product/${product.id}`}
+            ></Link>
             <div className="productCard-placeholder relative">
                 {gallery.length !== 0 ? (
                     <img

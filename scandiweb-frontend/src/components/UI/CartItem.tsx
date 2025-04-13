@@ -1,20 +1,7 @@
-import { AttributeSetType } from "../../types/resource";
-import { AttributeSet } from "./Attributes/AttributeSet";
-
 import { useCart } from "../../context/CartContext";
-
+import { AttributeSet } from "./AttributeSet";
 import { Minus, Plus } from "../Svg";
-import { useRuntime } from "../../context/RuntimeContext";
-
-interface CartItemProps {
-    id: string;
-    title: string;
-    price: string;
-    attributeSets: AttributeSetType[];
-    selectedAttributeItems: Record<number, number>
-    quantity: number;
-    imgUrl: string;
-}
+import { CartItemProps } from "../Interfaces";
 
 export const CartItem: React.FC<CartItemProps> = ({
     id,

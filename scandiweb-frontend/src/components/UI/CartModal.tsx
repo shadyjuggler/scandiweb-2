@@ -10,11 +10,9 @@ import { useModal } from "../../context/ModalContext";
 import { pluralize } from "../../utils/plurarize";
 import { formatPrice } from "../../utils/formatPrice";
 
-interface CartModalProps {
-    isModalOpen: boolean;
-}
-
-export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
+export const CartModal: React.FC<{ isModalOpen: boolean }> = ({
+    isModalOpen,
+}) => {
     const {
         cartProducts,
         stats: { totalPrice, productQuantity },
@@ -32,7 +30,7 @@ export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
                 My Bag,{" "}
                 <span className="font-medium">{`${pluralize(
                     productQuantity,
-                    "item"
+                    "Item"
                 )}`}</span>
             </p>
 
@@ -54,7 +52,9 @@ export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
                         return (
                             <CartItem
                                 id={id}
-                                key={id + " " + JSON.stringify(selectedAttributeItems)}
+                                key={
+                                    id + JSON.stringify(selectedAttributeItems)
+                                }
                                 title={name}
                                 price={formatPrice(
                                     prices[0].currency.symbol,
@@ -76,7 +76,7 @@ export const CartModal: React.FC<CartModalProps> = ({ isModalOpen }) => {
             </div>
 
             <div className="mt-8">
-                <MakeOrderBtn text="place order"/>
+                <MakeOrderBtn text="place order" />
             </div>
         </Modal>
     );

@@ -37,7 +37,7 @@ export const RuntimeProvider: React.FC<{
     const setDefaultSelectedAttributeItems: types.SetDefaultSelectedAttributeItems =
         (product) => {
             setSelectedAttributeItems(
-                productToAttributeRecords(product)
+                productToAttributeRecords(product, false),
             );
         };
 

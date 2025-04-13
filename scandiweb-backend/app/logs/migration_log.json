@@ -1,13 +1,13 @@
 [
-    "1_create_categories_table.php",
-    "2_create_products_table.php",
-    "3_create_product_gallery_table.php",
-    "4_create_currencies_table.php",
-    "5_create_product_prices_table.php",
-    "6_create_attributes_table.php",
-    "7_create_attribute_items_table.php",
-    "8_create_product_attributes_table.php",
-    "90_create_orders_table.php",
-    "91_create_order_items_table.php",
-    "92_create_order_item_attributes_table.php"
+    "11_create_categories_table.php",
+    "12_create_products_table.php",
+    "13_create_product_gallery_table.php",
+    "14_create_currencies_table.php",
+    "15_create_product_prices_table.php",
+    "16_create_attributes_table.php",
+    "17_create_attribute_items_table.php",
+    "18_create_product_attributes_table.php",
+    "19_create_orders_table.php",
+    "20_create_order_items_table.php",
+    "21_create_order_item_attributes_table.php"
 ]

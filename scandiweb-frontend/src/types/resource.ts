@@ -1,4 +1,4 @@
-// All field non-undefined, because initially all field planned to be fetched
+// Type fields are non-undefined, because all planned to be fetched from API
 
 export type AttributeType = {
     attribute_item_id: number;
@@ -44,16 +44,4 @@ export type ProductType = {
     attributes: AttributeSetType[];
     gallery: ImageType[];
     prices: PriceType[];
-};
-
-export type OrderProductInput = {
-    product_id: string;
-    quantity: number;
-    selected_attribute_item_ids: number[];
-};
-
-export type OrderType = {
-    currency: string;
-    total: number;
-    products: OrderProductInput[];
 };

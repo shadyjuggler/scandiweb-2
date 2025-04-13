@@ -1,15 +1,11 @@
 <?php
 
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type");
 
 require_once __DIR__ . '/../vendor/autoload.php';
-
-use App\Models\Attribute;
-use App\Models\ProductAttribute;
 use Dotenv\Dotenv;
 
+
+require_once __DIR__ . '/../app/bootstrap.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
@@ -37,14 +33,3 @@ switch ($routeInfo[0]) {
         echo $handler($vars);
         break;
 }
-
-// print_r((new Attribute)->getWithValuesByProductId("ps-5"));
-
-// print_r(
-//     (new ProductAttribute)
-//         // ->select(["display_value", "value"])
-//         ->join("attribute_items", "attribute_item_id", "id")
-//         ->where("product_attributes.product_id", "=", 'ps-5')
-//         ->where("product_attributes.attribute_id", "=", "attribute_items.attribute_id")
-//         ->get()
-// );

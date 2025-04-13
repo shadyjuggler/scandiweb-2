@@ -6,27 +6,41 @@ import { useCart } from "../../context/CartContext";
 import { useModal } from "../../context/ModalContext";
 import { useProductById } from "../../hooks/useProductById";
 import { parseHtmlSafe } from "../../utils/parseHtmlSafe";
-import { useEffect, useState } from "react";
-import { AttributeSet } from "../UI/Attributes/AttributeSet";
+import { useEffect} from "react";
+import { AttributeSet } from "../UI/AttributeSet";
 
 import { Section } from "../Layouts/Section";
 
 import { formatPrice } from "../../utils/formatPrice";
 import { useRuntime } from "../../context/RuntimeContext";
 
-export const ProductDetials: React.FC = ({}) => {
-    const { id } = useParams<{ id: string }>();
 
+/**
+ * ProductDetails Component
+ * 
+ * Stands to show all product related details
+ * 
+ * - Get product data by ID from URL params
+ * - Use context to manage cart, modal visibility, and runtime attribute state
+ * - Disable 'add-to-cart' button until all attributes are selected
+ * - Safely render product description with HTML tags
+ */
+export const ProductDetials: React.FC = ({}) => {
+
+    // Get :id product parameter
+    const { id } = useParams<{ id: string }>();
     if (!id) return <p>Invalid id product id parameter</p>;
 
     const { product, isLoading, error } = useProductById(id);
-
     const { addToCart } = useCart();
     const { toggleModalVisibility } = useModal();
-    const { selectedAttributeItems, setDefaultSelectedAttributeItems } =
-        useRuntime();
+    const { selectedAttributeItems, setDefaultSelectedAttributeItems } = useRuntime();
 
-    // When product loaded, set as selected attribute_items all attribute_items id's of first values in all attribute sets
+    /**
+     * When product is loaded:
+     *  Init selected attributes items in RuntimeContext
+     *  Sets all attributes default to -1 (not selected)
+     */
     useEffect(() => {
         if (!product) return;
 
@@ -37,12 +51,13 @@ export const ProductDetials: React.FC = ({}) => {
     if (error) return <p>Error: {error}</p>;
     if (!product) return <p>Product not found</p>;
 
+    // Extract only gallery urls
     const gelleryUrls = product.gallery.map((galleryItem) => galleryItem.url);
 
     return (
         <Section id="product-details">
             <div className="flex gap-16">
-                {/* Product Gallery */}
+                {/* LEFT SIDE: Product Gallery */}
                 <div className="basis-2/3 flex relative">
                     <div className="basis-1/5">
                         {/* space for pagination */}
@@ -74,7 +89,7 @@ export const ProductDetials: React.FC = ({}) => {
                     </div>
                 </div>
 
-                {/* Product Attributes, description, price and etc */}
+                {/* RIGHT SIDE: Product Attributes, description, price and etc */}
                 <div className="basis-1/3 ">
                     <div>
                         <p className="text-3xl font-semibold">{product.name}</p>
@@ -93,7 +108,9 @@ export const ProductDetials: React.FC = ({}) => {
                                             key={set.attribute_id}
                                             type={set.type}
                                             items={set.items}
-                                            selectedAttributeItems={selectedAttributeItems}
+                                            selectedAttributeItems={
+                                                selectedAttributeItems
+                                            }
                                             isSmall={false}
                                         />
                                     )}
@@ -113,7 +130,12 @@ export const ProductDetials: React.FC = ({}) => {
                     </div>
                     <div className="mt-4">
                         <button
-                            disabled={!product.inStock}
+                            disabled={
+                                !product.inStock ||
+                                Object.values(selectedAttributeItems).some(
+                                    (value) => value === -1
+                                )
+                            }
                             onClick={() => {
                                 addToCart(product, selectedAttributeItems);
                                 toggleModalVisibility(true);

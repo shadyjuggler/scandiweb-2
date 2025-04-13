@@ -1,3 +1,11 @@
+.swatch {
+    @apply flex gap-2;
+}
+
+.text {
+    @apply flex gap-3;
+}
+
 .attribute-text {
     @apply min-w-15 py-2.5 px-2.5 border border-[#1D1F22] bg-white cursor-pointer transition-all;
 }
@@ -31,7 +39,7 @@
 }
 
 .small .attribute-text {
-    @apply min-w-6 h-6 text-sm p-0 flex justify-center items-center;
+    @apply min-w-6 h-6 text-sm py-0 px-1 flex justify-center items-center;
 }
 
 .small .attribute-swatch {

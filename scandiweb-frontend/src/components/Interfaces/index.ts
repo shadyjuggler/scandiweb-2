@@ -6,8 +6,12 @@ export type AttributeSetProps = Partial<AttributeSetType> & {
     selectedAttributeItems: Record<number, number>
 };
 
-export type RenderAttributeSetProps = Partial<AttributeSetType> & {
-    isSmall: boolean;
-    onClick: (index: number) => void;
+export interface CartItemProps {
+    id: string;
+    title: string;
+    price: string;
+    attributeSets: AttributeSetType[];
     selectedAttributeItems: Record<number, number>
-};
+    quantity: number;
+    imgUrl: string;
+}
