@@ -62,30 +62,31 @@ export const ProductDetials: React.FC = ({}) => {
                         {/* space for pagination */}
                     </div>
                     <div className="basis-4/5">
-                        <Slider
-                            id="pd-slider"
-                            data-testid="product-gallery"
-                            autoScroll={false}
-                            paginationClassName="pd-sliderPagination"
-                            paginationGallery={gelleryUrls}
-                            navigation={{
-                                btnNext: "pd-btnNext",
-                                btnPrev: "pd-btnPrev",
-                            }}
-                        >
-                            {gelleryUrls.map((url) => {
-                                return (
-                                    <Slide key={url}>
-                                        <div
-                                            className={`pd-slide`}
-                                            style={{
-                                                backgroundImage: `url(${url})`,
-                                            }}
-                                        ></div>
-                                    </Slide>
-                                );
-                            })}
-                        </Slider>
+                        <div data-testid="product-gallery">
+                            <Slider
+                                id="pd-slider"
+                                autoScroll={false}
+                                paginationClassName="pd-sliderPagination"
+                                paginationGallery={gelleryUrls}
+                                navigation={{
+                                    btnNext: "pd-btnNext",
+                                    btnPrev: "pd-btnPrev",
+                                }}
+                            >
+                                {gelleryUrls.map((url) => {
+                                    return (
+                                        <Slide key={url}>
+                                            <div
+                                                className={`pd-slide`}
+                                                style={{
+                                                    backgroundImage: `url(${url})`,
+                                                }}
+                                            ></div>
+                                        </Slide>
+                                    );
+                                })}
+                            </Slider>
+                        </div>
                     </div>
                 </div>
 
