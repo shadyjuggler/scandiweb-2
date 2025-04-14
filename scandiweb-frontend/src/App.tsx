@@ -1,7 +1,6 @@
 import { Navbar } from "./components/UI/Navbar";
 import { ProductList } from "./components/Sections/ProductList";
 import { ProductDetials } from "./components/Sections/ProductDetails";
-
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -9,7 +8,7 @@ function App() {
         <div className="container mx-auto">
             <Navbar />
             <Routes>
-                <Route path="/" element={<ProductList />}></Route>
+                <Route path={"/"} element={<ProductList />}></Route>
                 <Route path="/product/:id" element={<ProductDetials />}></Route>
             </Routes>
         </div>
