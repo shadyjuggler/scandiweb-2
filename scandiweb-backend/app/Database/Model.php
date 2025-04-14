@@ -160,7 +160,7 @@ abstract class Model
      * @param array|string $columns
      * @return $this
      */
-    public function select(array|string $columns, $distinct = false): static
+    public function select(array|string $columns): static
     {
         $this->selectColumns = is_array($columns) ? $columns : [$columns];
         return $this;

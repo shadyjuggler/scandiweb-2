@@ -6,8 +6,11 @@ use App\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
     public function run(): void {
+
+        // Get prepared data
         $data = $this->loadJsonData('data.json')['data'];
 
+        // Run all seeders
         (new CategoriesSeeder($data))->run();
         (new CurrenciesSeeder($data))->run();
         (new AttributesSeeder($data))->run();

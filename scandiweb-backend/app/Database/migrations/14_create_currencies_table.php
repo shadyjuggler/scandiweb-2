@@ -1,6 +1,6 @@
 <?php
 return new class {
-    public function up() {
+    public function up(): void {
         $pdo = \App\Database\DB::pdo();
         $pdo->exec("CREATE TABLE IF NOT EXISTS currencies (
             label VARCHAR(10) PRIMARY KEY,

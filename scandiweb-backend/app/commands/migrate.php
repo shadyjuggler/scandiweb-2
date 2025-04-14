@@ -13,6 +13,12 @@ $runner = new MigrationRunner();
 
 $action = $argv[1] ?? 'run';
 
+/**
+ * Handle cli actions:
+ * - run: simple migration execution
+ * - seed: migrations + seeders
+ * - wipe: drop all tables
+ */
 match ($action) {
     'run'      => $runner->run(),
     'seed'     => seedDatabase($runner),
@@ -20,11 +26,19 @@ match ($action) {
     default    => print("Unknown command: $action\n")
 };
 
-function seedDatabase(MigrationRunner $runner): void {
+/**
+ * Run all migrations followed by all seeders.
+ *
+ * @param MigrationRunner $runner
+ * @return void
+ */
+function seedDatabase(MigrationRunner $runner): void
+{
     echo "Running migrations...\n";
     $runner->run();
 
     echo "Running DatabaseSeeder...\n";
     (new DatabaseSeeder)->run();
+
     echo "All seeders executed.\n";
 }

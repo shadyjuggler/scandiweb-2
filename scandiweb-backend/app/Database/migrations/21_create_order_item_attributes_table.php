@@ -1,6 +1,6 @@
 <?php
 return new class {
-    public function up() {
+    public function up(): void {
         $pdo = App\Database\DB::pdo();
         $pdo->exec("CREATE TABLE IF NOT EXISTS order_item_attributes (
             id INT AUTO_INCREMENT PRIMARY KEY,
