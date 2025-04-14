@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useCategories } from "../../context/CategoryContext";
 import { useRuntime } from "../../context/RuntimeContext";
@@ -19,11 +19,8 @@ export const ProductCategories: React.FC = () => {
         <>
             {categories.map((category, i) => {
                 return (
-                    <p
-                        // INTENTIONAL use of 'href' attribute on <p> tag, because auto-test required element to have href="/all" like attriubte,
-                        // the routing is built in the way that all categories links navigate to "/" route, and filtering is applied from react state
-                        //@ts-ignore
-                        href={`/${category.name}`}
+                    <Link
+                        to={`/${category.name}`}
 
                         key={category.name}
                         data-testid={`category-link ${
@@ -32,14 +29,16 @@ export const ProductCategories: React.FC = () => {
                         className={`nav-link ${
                             activeTab === i && "nav-link_active"
                         }`}
-                        onClick={() => {
+                        onClick={(e) => {
+                            e.preventDefault();
+                            
                             setActiveCategory(category.name);
                             setActiveTab(i);
                             navigate("/")
                         }}
                     >
                         {category.name}
-                    </p>
+                    </Link>
                 );
             })}
         </>
