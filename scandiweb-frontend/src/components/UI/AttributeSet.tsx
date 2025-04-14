@@ -26,14 +26,25 @@ export const AttributeSet: React.FC<AttributeSetProps> = ({
         return <p className="text-semibold">No attribute items provided</p>;
     }
 
+    const attributeTestId = `${
+        isSmall ? "cart-item" : "product"
+    }-attribute-${toKebabCase(name)}`;
+
     return (
         <div
-            data-testid={`cart-item-attribute-${toKebabCase(name)}`}
+            data-testid={attributeTestId}
             className={`${isSmall && "small"} ${
                 type === "swatch" ? "swatch" : type === "text" ? "text" : ""
             }`}
         >
             {items?.map((attributeItem) => {
+
+                const attributeItemTestIdBase = `${
+                    isSmall ? "cart-item" : "product"
+                }-attribute-${toKebabCase(name)}-${attributeItem.value}`;
+
+                console.log(attributeItem.value);
+
                 return (
                     <span
                         key={attributeItem.attribute_item_id}
@@ -46,8 +57,8 @@ export const AttributeSet: React.FC<AttributeSetProps> = ({
                         data-testid={
                             selectedAttributeItems[attribute_id ?? 0] ===
                             attributeItem.attribute_item_id
-                                ? `cart-item-attribute-${toKebabCase(name)}-${toKebabCase(attributeItem.value)}`
-                                : `cart-item-attribute-${toKebabCase(name)}-${toKebabCase(attributeItem.value)}-selected`
+                                ? attributeItemTestIdBase + "-selected"
+                                : attributeItemTestIdBase
                         }
                         style={
                             type === "swatch"

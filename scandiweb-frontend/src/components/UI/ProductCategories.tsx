@@ -23,15 +23,15 @@ export const ProductCategories: React.FC = () => {
                         to={`/${category.name}`}
 
                         key={category.name}
-                        data-testid={`category-link ${
-                            activeTab === i && "active-category-link"
+                        data-testid={`${
+                            activeTab === i ? "active-category-link" : ""
                         }`}
                         className={`nav-link ${
                             activeTab === i && "nav-link_active"
                         }`}
                         onClick={(e) => {
                             e.preventDefault();
-                            
+
                             setActiveCategory(category.name);
                             setActiveTab(i);
                             navigate("/")
