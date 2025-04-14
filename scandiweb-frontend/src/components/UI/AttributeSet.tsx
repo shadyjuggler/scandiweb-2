@@ -1,6 +1,7 @@
 import { AttributeSetProps } from "../Interfaces";
 
 import { useRuntime } from "../../context/RuntimeContext";
+import { toKebabCase } from "../../utils/toKebabCase";
 
 export const AttributeSet: React.FC<AttributeSetProps> = ({
     attribute_id,
@@ -27,7 +28,7 @@ export const AttributeSet: React.FC<AttributeSetProps> = ({
 
     return (
         <div
-            data-testid={`cart-item-attribute-${name}`}
+            data-testid={`cart-item-attribute-${toKebabCase(name)}`}
             className={`${isSmall && "small"} ${
                 type === "swatch" ? "swatch" : type === "text" ? "text" : ""
             }`}
@@ -45,8 +46,8 @@ export const AttributeSet: React.FC<AttributeSetProps> = ({
                         data-testid={
                             selectedAttributeItems[attribute_id ?? 0] ===
                             attributeItem.attribute_item_id
-                                ? `cart-item-attribute-${name}-${attributeItem.value}`
-                                : `cart-item-attribute-${name}-${attributeItem.displayValue}-selected`
+                                ? `cart-item-attribute-${toKebabCase(name)}-${toKebabCase(attributeItem.value)}`
+                                : `cart-item-attribute-${toKebabCase(name)}-${toKebabCase(attributeItem.value)}-selected`
                         }
                         style={
                             type === "swatch"

@@ -40,6 +40,7 @@ export const Modal: React.FC<ModalProps> = ({
             className={`fixed top-0 left-0 z-50 flex items-center justify-center ${backdropClassName}`}
             role="dialog"
             aria-modal="true"
+            data-testid="cart-overlay"
         >
             <div className="container mx-auto">
                 <div

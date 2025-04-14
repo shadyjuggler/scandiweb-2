@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ProductType } from "../../types/resource";
 
 import { QuickShop } from "./QuickShop";
+import { toKebabCase } from "../../utils/toKebabCase";
 
 export const ProductCard: React.FC<{ product: ProductType }> = ({
     product,
@@ -9,7 +10,7 @@ export const ProductCard: React.FC<{ product: ProductType }> = ({
     const { gallery, name, prices, inStock } = product;
 
     return (
-        <div data-testid={`product-${product.id}`} className="productCard relative">
+        <div data-testid={`product-${toKebabCase(product.name)}`} className="productCard relative">
             <Link
                 className="absolute w-full h-full top-0 left-0 z-20"
                 key={product.id}
